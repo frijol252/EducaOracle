@@ -152,7 +152,29 @@ namespace Implementation
         public static int GetIdentityFromTable(string table)
         {
             int res = -1;
-            string query = "SELECT   " + table.ToUpper() + "_SEQ.currval+increment_by FROM user_sequences WHERE sequence_name = ' " + table.ToUpper() + "_SEQ'";
+            string query = "SELECT "+table.ToUpper()+"_SEQ.nextval S FROM dual; ";
+            try
+            {
+                OracleCommand cmd = CreateBasicCommand(query);
+                res = int.Parse(ExecuteScalarCommand(cmd));
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return res;
+        }
+
+        public static int ResetIdentFromTable(string table)
+        {
+            int res = -1;
+            string query = @"ALTER SEQUENCE " + table.ToUpper() + @"_SEQ 
+                            INCREMENT BY -"+ GetIncementFromTable(table)+ @";
+                            SELECT " + table.ToUpper() + @"_SEQ.nextval S
+                              FROM dual;
+                            ALTER SEQUENCE " + table.ToUpper() + @"_SEQ 
+                            INCREMENT BY "+ GetIncementFromTable(table)+";";
             try
             {
                 OracleCommand cmd = CreateBasicCommand(query);
