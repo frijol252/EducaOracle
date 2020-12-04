@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Educa.StudentsView.Schedules.StudenSchedules"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Educa.StudentsView.Schedules"
+             mc:Ignorable="d" 
+             Initialized="UserControl_Initialized" Loaded="UserControl_Loaded"
+             d:DesignHeight="450" d:DesignWidth="850">
+    <Grid>
+        <Grid Height="30" VerticalAlignment="Top" Background="#2a3f54" Margin="0,0,1,0"/>
+        <Grid Margin="-2,29,-1,-2" Background="#ededed">
+            <StackPanel Orientation="Horizontal" Height="371" HorizontalAlignment="Left"  Margin="10,26,0,26" Width="819">
+                <StackPanel Orientation="Vertical">
+                    <Label FontWeight="DemiBold" Margin="0,55,0,0">7:15-8:00</Label>
+                    <Label FontWeight="DemiBold" Margin="0,12,0,0">8:00-8:45</Label>
+                    <Label FontWeight="DemiBold" Margin="0,12,0,0">8:45-9:30</Label>
+                    <Label FontWeight="DemiBold" Margin="0,12,0,0">9:30-10:15</Label>
+                    <Label FontWeight="DemiBold" Margin="0,12,0,0">10:15-11:00</Label>
+                    <Label FontWeight="DemiBold" Margin="0,12,0,0">11:00-11:45</Label>
+                    <Label FontWeight="DemiBold" Margin="0,12,0,0">11:45-12:30</Label>
+                    <Label FontWeight="DemiBold" Margin="0,12,0,0">12:30-13:15</Label>
+                </StackPanel>
+                <DataGrid IsEnabled="False" HorizontalScrollBarVisibility="Hidden" x:Name="dgvDatos"  IsReadOnly="True" Background="#ededed" CanUserAddRows="False" HorizontalAlignment="Left" Height="362" Margin="20,-2,0,0" VerticalAlignment="Top" Width="120"/>
+                <DataGrid IsEnabled="False" HorizontalScrollBarVisibility="Hidden" x:Name="dgvDatosmar"  IsReadOnly="True" Background="#ededed" CanUserAddRows="False" HorizontalAlignment="Left" Height="362" Margin="0,-2,0,0" VerticalAlignment="Top" Width="120"/>
+                <DataGrid IsEnabled="False" HorizontalScrollBarVisibility="Hidden" x:Name="dgvDatosmier"  IsReadOnly="True" Background="#ededed" CanUserAddRows="False" HorizontalAlignment="Left" Height="362" Margin="0,-2,0,0" VerticalAlignment="Top" Width="120"/>
+                <DataGrid IsEnabled="False" HorizontalScrollBarVisibility="Hidden" x:Name="dgvDatosjue"  IsReadOnly="True" Background="#ededed" CanUserAddRows="False" HorizontalAlignment="Left" Height="362" Margin="0,-2,0,0" VerticalAlignment="Top" Width="120"/>
+                <DataGrid IsEnabled="False" HorizontalScrollBarVisibility="Hidden" x:Name="dgvDatosvier"  IsReadOnly="True" Background="#ededed" CanUserAddRows="False" HorizontalAlignment="Left" Height="362" Margin="0,-2,0,0" VerticalAlignment="Top" Width="120"/>
+                <DataGrid IsEnabled="False" HorizontalScrollBarVisibility="Hidden" x:Name="dgvDatossab"  IsReadOnly="True" Background="#ededed" CanUserAddRows="False" HorizontalAlignment="Left" Height="362" Margin="0,-2,0,0" VerticalAlignment="Top" Width="120"/>
+            </StackPanel>
+
+
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,60 @@
+﻿<Window x:Class="Educa.Administrativo.Students.Students"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Educa.Administrativo.Students" WindowStyle="None" AllowsTransparency="True"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             mc:Ignorable="d" Loaded="Window_Loaded" Initialized="Window_Initialized"
+             d:DesignHeight="634.825" d:DesignWidth="987.354">
+    <Grid>
+        <Grid Height="30" VerticalAlignment="Top" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Background="#2a3f54" Margin="0,0,3,0">
+            <Button x:Name="btnClose" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible" Click="BtnClose_Click">
+                <materialDesign:PackIcon Kind="Close" Foreground="White"/>
+            </Button>
+        </Grid>
+        <Grid Margin="-25,28,-4,-3" Background="#ededed">
+            <StackPanel Height="440"  VerticalAlignment="Top" Margin="0,-2,0,0">
+                <Button x:Name="DisStu" Margin="60,10,60,0" Background="#D15656" Foreground="White" FontSize="30" Content="Disabled Students" Height="47" Click="Button_Click"></Button>
+                <StackPanel Orientation="Horizontal" Margin="24,10,24,0">
+                    <materialDesign:PackIcon Kind="Search" FontWeight="Bold" Foreground="#2a3f54" VerticalAlignment="Bottom" Margin="0 4"/>
+                    <TextBox x:Name="txtsearch" TextChanged="Txtsearch_TextChanged" Foreground="Black" Width="932" materialDesign:HintAssist.Hint="Search" materialDesign:HintAssist.Foreground="#06ad75" Height="33" ></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <DataGrid x:Name="dgvDatos" IsReadOnly="True" Background="#ededed" CanUserAddRows="False" SelectedCellsChanged="DgvDatos_SelectedCellsChanged" HorizontalAlignment="Left" Height="246" Margin="20,10,0,0" VerticalAlignment="Top" Width="680"/>
+
+                    <StackPanel VerticalAlignment="Center" Width="299">
+                        <Image Margin="40,0,0,0" Width="200" Height="200" x:Name="imagesector"></Image>
+                        <StackPanel Orientation="Horizontal">
+                            <Button  x:Name="btnAdd" Content="Add Student" Foreground="White" Background="#dfa752" Width="100" Click="BtnAdd_Click" Margin="30,40,0,0"></Button>
+                            <Button Click="BtnMod_Click" IsEnabled="False" x:Name="btnMod" Content="Modif" Foreground="White" Background="#06ad75" Width="100" Margin="60,40,0,0" ></Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Click="BtnDel_Click" IsEnabled="False" x:Name="btnDel" Content="Delete" Foreground="White" Background="#2a3f54" Width="100" Margin="30,40,0,0" />
+                            <Button Click="BtnDis_Click" IsEnabled="False" x:Name="btnDis" Content="Disable" Foreground="White" Background="#D15656" Width="100" Margin="60,40,0,0" ></Button>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </StackPanel>
+            <StackPanel Margin="0,400,0,0">
+                <StackPanel Height="40" Margin="60,40,0,0" Orientation="Horizontal">
+                    <Label Foreground="#2a3f54" FontSize="15" >Student Name:</Label>
+                    <Label x:Name="lblnames" FontSize="15" Content="..." Width="50"></Label>
+                    <Label Foreground="#2a3f54" Margin="60,0,0,0" FontSize="15" >Student's Mail:</Label>
+                    <Label x:Name="lblmail" FontSize="15" Content="..." Width="250"></Label>
+                    <Label Foreground="#2a3f54" Margin="80,0,0,0" FontSize="15" >Rude's Section:</Label>
+                    <Label x:Name="lblrude" FontSize="15" Content="..." Width="150"></Label>
+                    <TextBox Visibility="Hidden" x:Name="lblid"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="300,10,0,0" Orientation="Horizontal">
+
+                </StackPanel>
+
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Window>

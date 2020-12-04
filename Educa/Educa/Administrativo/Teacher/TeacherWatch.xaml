@@ -1,0 +1,48 @@
+﻿<Window x:Class="Educa.Administrativo.Teacher.TeacherWatch"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Educa.Administrativo.Teacher" WindowStyle="None"
+        AllowsTransparency="True"
+        Initialized="Window_Initialized" Loaded="Window_Loaded"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="TeacherWatch" Height="600" Width="1300">
+    <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+        <Grid Background="#ededed">
+        <Grid Height="30" VerticalAlignment="Top" Background="#2a3f54" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+                <Button x:Name="btnClose" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible" Click="BtnClose_Click">
+                    <materialDesign:PackIcon Kind="Close" Foreground="White"/>
+                </Button>
+            </Grid>
+        <Grid>
+            <StackPanel VerticalAlignment="Top" Height="60" Margin="0 40 0 0">
+                <Button x:Name="btnDisabledView" Content="Disabled Teachers" Height="40" FontSize="20" Foreground="White" Margin="10 20 10 0" Background="#06ad75" Click="BtnDisabledView_Click"></Button>
+                
+            </StackPanel>
+            <StackPanel Height="418"  VerticalAlignment="Top" Margin="0 110 0 0">
+                    <StackPanel Orientation="Horizontal" Margin="24,10,24,0">
+                        <materialDesign:PackIcon Kind="Search" FontWeight="Bold" Foreground="#2a3f54" VerticalAlignment="Bottom" Margin="0 4"/>
+                        <TextBox x:Name="txtsearch" TextChanged="Txtsearch_TextChanged" Foreground="Black" Width="1236" materialDesign:HintAssist.Hint="Search" materialDesign:HintAssist.Foreground="#06ad75" ></TextBox>
+                    </StackPanel>
+                    <DataGrid x:Name="dgvDatos" Loaded="dgvDatos_Loaded" IsReadOnly="True" Background="#ededed" CanUserAddRows="False" SelectedCellsChanged="DgvDatos_SelectedCellsChanged" HorizontalAlignment="Left" Height="370" Margin="20,10,0,0" VerticalAlignment="Top" Width="1260"/>
+            </StackPanel>
+            <StackPanel Height="80" VerticalAlignment="Bottom"  Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" x:Name="stacken" HorizontalAlignment="Center" Margin="0 20 0 0">
+                    <TextBox x:Name="txtid" Text="" Width="0" Height="0"></TextBox>
+                        <Label Content="Name:" Margin=" 200 0 30 0" Foreground="#2a3f54" FontSize="20"></Label>
+                    <Label Content="....." x:Name="namenabled" Width="200" Foreground="#c51d6a" FontSize="20"></Label>
+                        <Label Content="Last Name:" Margin=" 100 0 30 0" Foreground="#2a3f54" FontSize="20"></Label>
+                    <Label Content="....." Width="100" x:Name="lastenabled" Foreground="#c51d6a" FontSize="20"></Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                        <Button x:Name="Disabledbtn" IsEnabled="False" Content="Disabled" FontSize="18" Height="40" Foreground="White" Width="200" Margin="30 0 0 0" Background="#dfa752" Click="Disabledbtn_Click"></Button>
+                        <Button x:Name="subjects" IsEnabled="False" Content="Subjects" FontSize="18" Height="40" Foreground="White" Width="200" Margin="30 0 0 0" Background="#2a3f54" Click="Subjects_Click"></Button>
+                    </StackPanel>
+                
+            </StackPanel>
+        </Grid>
+    </Grid>
+    </materialDesign:TransitioningContent>
+</Window>

@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="Educa.Home.Inicio"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Educa"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Height="auto" Width="auto">
+    <Grid>
+        <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+            <Grid Height="258">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Height="300" Background="#f6d063" Margin="10">
+                    <Grid.Effect>
+                        <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" ShadowDepth="1"/>
+                    </Grid.Effect>
+
+                    <StackPanel Width="200">
+                        <TextBlock Margin="10" FontFamily="Showcard Gothic" FontSize="12" Text="Add Administrators" Foreground="#1d211a"/>
+                        <Image Source="" Width="200" Height="106" Stretch="UniformToFill" />
+                        <TextBlock FontSize="12" Margin="5" TextWrapping="Wrap" FontFamily="Champagne &amp; Limousines">
+                            You can add new administrators, but please 
+perform with caution, because Educa will not be responsible for the legal process that is carried out
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="1" Height="300" Background="#f6d063" Margin="10">
+                    <Grid.Effect>
+                        <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" ShadowDepth="1"/>
+                    </Grid.Effect>
+
+                    <StackPanel Width="200">
+                        <TextBlock Margin="10" FontFamily="Showcard Gothic" FontSize="12" Text="Add Teachers" Foreground="#1d211a"/>
+                        <Image Source="" Width="200" Height="105" Stretch="UniformToFill" />
+                        <TextBlock  FontSize="12" Margin="5" TextWrapping="Wrap" FontFamily="Champagne &amp; Limousines">
+                            Add Teacher and set Subjects for this teachers, performs the management that teachers will be able to review what classes
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Column="2" Height="300" Background="#f6d063" Margin="10">
+                    <Grid.Effect>
+                        <DropShadowEffect BlurRadius="20" Color="#FFDEDEDE" ShadowDepth="1"/>
+                    </Grid.Effect>
+
+                    <StackPanel Width="200">
+                        <TextBlock Margin="10" FontFamily="Showcard Gothic" FontSize="12" Text="Add Students" Foreground="#1d211a"/>
+                        <Image Source="" Width="200" Height="105" Stretch="UniformToFill" />
+                        <TextBlock FontSize="12" Margin="5" TextWrapping="Wrap" FontFamily="Champagne &amp; Limousines">
+                            Add students, add subjects, remove them, with a simple method of managing them, with the ease and control that Educa offers you
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </materialDesign:TransitioningContent>
+    </Grid>
+</UserControl>

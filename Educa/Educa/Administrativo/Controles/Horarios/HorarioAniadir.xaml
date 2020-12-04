@@ -1,0 +1,163 @@
+﻿<Window x:Class="Educa.Controles.Horarios.HorarioAniadir"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Educa.Controles.Horarios"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="HorarioAniadir" Height="500" Width="610" WindowStyle="None" WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True">
+    <Window.Resources>
+        <!-- Insert -->
+        <Storyboard x:Key="SubMenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="Insestack">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:1" Value="400"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="SubMenuCollapse">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="Insestack">
+                <EasingDoubleKeyFrame KeyTime="0" Value="400"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <!-- Modif -->
+        <Storyboard x:Key="SubMenuOpenModif">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="Modstack">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:1" Value="400"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="SubMenuCollapseModif">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="Modstack">
+                <EasingDoubleKeyFrame KeyTime="0" Value="400"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:0" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <!-- Del -->
+        <Storyboard x:Key="SubMenuOpenDel">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="Delstack">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:1" Value="400"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="SubMenuCollapseDel">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="Delstack">
+                <EasingDoubleKeyFrame KeyTime="0" Value="400"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0:0" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <!-- Insert -->
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="Insert">
+            <BeginStoryboard Storyboard="{StaticResource SubMenuOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="Insert">
+            <BeginStoryboard Storyboard="{StaticResource SubMenuCollapseModif}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="Insert">
+            <BeginStoryboard Storyboard="{StaticResource SubMenuCollapseDel}"/>
+        </EventTrigger>
+        <!-- Modif -->
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="Modif">
+            <BeginStoryboard Storyboard="{StaticResource SubMenuOpenModif}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="Modif">
+            <BeginStoryboard Storyboard="{StaticResource SubMenuCollapse}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="Modif">
+            <BeginStoryboard Storyboard="{StaticResource SubMenuCollapseDel}"/>
+        </EventTrigger>
+        <!-- Delete -->
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="Delete">
+            <BeginStoryboard Storyboard="{StaticResource SubMenuOpenDel}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="Delete">
+            <BeginStoryboard Storyboard="{StaticResource SubMenuCollapse}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="Delete">
+            <BeginStoryboard Storyboard="{StaticResource SubMenuCollapseModif}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid>
+        <Grid Height="25" Width="610" VerticalAlignment="Top" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Background="#9d0858">
+            <Button x:Name="btnClose" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible" Click="BtnClose_Click">
+                <materialDesign:PackIcon Kind="Close" Foreground="White"/>
+            </Button>
+        </Grid>
+        <Grid Margin="0 25 0 0" Height="475" Width="610" Background="#c51d6a">
+            <StackPanel x:Name="Insestack" Margin="30 0 30 0" Height="0" Orientation="Vertical" VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal" Margin="0 50 0 0">
+                    <TextBlock Text="Tiempo de Inicio:"  VerticalAlignment="Center" Margin="0 0 43 0"></TextBlock>
+                    <materialDesign:TimePicker x:Name="TimeInicio" Width="415"></materialDesign:TimePicker>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 70 0 0">
+                    <TextBlock Text="Tiempo de Finalizacion:" VerticalAlignment="Center" Margin="0 0 10 0"></TextBlock>
+                    <materialDesign:TimePicker x:Name="TimeFin" Width="415"></materialDesign:TimePicker>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="180 70 0 0">
+                    <TextBlock Text="Día:" VerticalAlignment="Center"></TextBlock>
+                    <ComboBox x:Name="comboday" Background="#dfa752" Margin="30 0 0 0" Width="150">
+                        <ComboBoxItem Content="Lunes" IsSelected="True"></ComboBoxItem>
+                        <ComboBoxItem Content="Martes" ></ComboBoxItem>
+                        <ComboBoxItem Content="Miercoles" ></ComboBoxItem>
+                        <ComboBoxItem Content="Jueves" ></ComboBoxItem>
+                        <ComboBoxItem Content="Sabado" ></ComboBoxItem>
+                        <ComboBoxItem Content="Domingo" ></ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="100 35 60 0">
+                    <Button x:Name="AceptarInsert" Click="AceptarInsert_Click" Content="Aceptar" Height="40" Margin="135 20 0 0" Background="#dfa752"></Button>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel x:Name="Modstack"  Margin="30 0 30 0" Height="0" Orientation="Vertical" VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal" Margin="80 20 0 0">
+                    <Label Content="Id" VerticalAlignment="Center" ></Label>
+                    <TextBox x:Name="txtId" Width="60" Margin="20 0 0 0" materialDesign:HintAssist.Hint="Inserta Id"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 50 0 0">
+                    <TextBlock Text="Tiempo de Inicio:"  VerticalAlignment="Center" Margin="0 0 43 0"></TextBlock>
+                    <materialDesign:TimePicker x:Name="TimeInicioModif" Width="415"></materialDesign:TimePicker>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 70 0 0">
+                    <TextBlock Text="Tiempo de Finalizacion:" VerticalAlignment="Center" Margin="0 0 10 0"></TextBlock>
+                    <materialDesign:TimePicker x:Name="TimeFinModif" Width="415"></materialDesign:TimePicker>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="180 70 0 0">
+                    <TextBlock Text="Día:" VerticalAlignment="Center"></TextBlock>
+                    <ComboBox x:Name="ComboModif" Background="#dfa752" Margin="30 0 0 0" Width="150">
+                        <ComboBoxItem Content="Lunes" IsSelected="True"></ComboBoxItem>
+                        <ComboBoxItem Content="Martes" ></ComboBoxItem>
+                        <ComboBoxItem Content="Miercoles" ></ComboBoxItem>
+                        <ComboBoxItem Content="Jueves" ></ComboBoxItem>
+                        <ComboBoxItem Content="Sabado" ></ComboBoxItem>
+                        <ComboBoxItem Content="Domingo" ></ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="100 35 60 0">
+                    <Button x:Name="AceptarModif" Click="AceptarModif_Click" Content="Aceptar" Height="40" Margin="135 0 0 0" Background="#dfa752"></Button>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel x:Name="Delstack"  Margin="30 0 30 0" Height="0" Orientation="Vertical" VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal" Margin="210 100 0 0">
+                    <Label Content="Id" VerticalAlignment="Center" ></Label>
+                    <TextBox x:Name="txtIdDel" Width="60" Margin="20 0 0 0" materialDesign:HintAssist.Hint="Inserta Id"></TextBox>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Margin="100 80 60 0">
+                    <Button x:Name="AceptarEliminar" Click="AceptarEliminar_Click" Content="Aceptar" Height="40" Margin="135 0 0 0" Background="#dfa752"></Button>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Margin="0 0 0 20" Orientation="Horizontal" VerticalAlignment="Bottom">
+                <Button x:Name="Insert" Content="Insertar" Height="40" Margin="100 0 0 0" Background="#dfa752"></Button>
+                <Button x:Name="Modif" Content="Modificar" Height="40" Margin="80 0 0 0 " Background="#dfa752"></Button>
+                <Button x:Name="Delete" Content="Eliminar" Height="40" Margin="80 0 0 0 " Background="#dfa752"></Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

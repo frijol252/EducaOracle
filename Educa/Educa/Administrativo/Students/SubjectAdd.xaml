@@ -1,0 +1,68 @@
+﻿<Window x:Class="Educa.Administrativo.Students.SubjectAdd"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Educa.Administrativo.Students"
+        mc:Ignorable="d" WindowStyle="None" AllowsTransparency="True" Initialized="Window_Initialized" Loaded="Window_Loaded"
+        Title="StudentAdd" Height="550" Width="860">
+    <Grid>
+        <Grid Height="30" VerticalAlignment="Top" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Background="#2a3f54" Margin="0,0,1,0">
+            <Button x:Name="btnClose" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible" Click="BtnClose_Click">
+                <materialDesign:PackIcon Kind="Close" Foreground="White"/>
+            </Button>
+        </Grid>
+        <Grid Margin="0,31,0,0" Background="#ededed">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Width="300">
+                    <StackPanel Orientation="Horizontal" Height="232" Margin="10,10,0,0">
+                        <DataGrid x:Name="dgvSub" Loaded="dgvSub_Loaded" IsReadOnly="True" Background="#ededed" SelectedCellsChanged="DgvSub_SelectedCellsChanged" CanUserAddRows="False" HorizontalAlignment="Left" Height="232" Margin="0,0,0,0" VerticalAlignment="Top" Width="317"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
+                        <Button x:Name="btnSelectSubject" Width="150" Content="Select Subject" Height="40" Margin="70 20 0 0" Foreground="White" Background="#06ad75" Click="BtnSelectSubject_Click"></Button>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="198"  Margin="20,0,22,10">
+
+                        <ListBox x:Name="lstSubs" Width="261"/>
+                    </StackPanel>
+
+                </StackPanel>
+                <StackPanel>
+                    <!-- INSERT -->
+                    <StackPanel x:Name="Insestack" Background="#ededed" Margin="30 0 30 0" Height="514" Orientation="Vertical" VerticalAlignment="Top">
+                        
+                        <StackPanel Orientation="Horizontal" Height="371"  Margin="10 10 0 10" Width="520">
+                            <StackPanel Orientation="Vertical">
+                                <Label FontWeight="DemiBold" Margin="0,55,0,0">7:15-8:00</Label>
+                                <Label FontWeight="DemiBold" Margin="0,12,0,0">8:00-8:45</Label>
+                                <Label FontWeight="DemiBold" Margin="0,12,0,0">8:45-9:30</Label>
+                                <Label FontWeight="DemiBold" Margin="0,12,0,0">9:30-10:15</Label>
+                                <Label FontWeight="DemiBold" Margin="0,12,0,0">10:15-11:00</Label>
+                                <Label FontWeight="DemiBold" Margin="0,12,0,0">11:00-11:45</Label>
+                                <Label FontWeight="DemiBold" Margin="0,12,0,0">11:45-12:30</Label>
+                                <Label FontWeight="DemiBold" Margin="0,12,0,0">12:30-13:15</Label>
+                            </StackPanel>
+                            <DataGrid IsEnabled="False" x:Name="dgvDatos" SelectedCellsChanged="DgvDatos_SelectedCellsChanged" IsReadOnly="True" Background="#ededed" CanUserAddRows="False" HorizontalAlignment="Left" Height="362" Margin="20,-2,0,0" VerticalAlignment="Top" Width="69"/>
+                            <DataGrid IsEnabled="False" x:Name="dgvDatosmar" SelectedCellsChanged="DgvDatosmar_SelectedCellsChanged" IsReadOnly="True" Background="#ededed" CanUserAddRows="False" HorizontalAlignment="Left" Height="362" Margin="0,-2,0,0" VerticalAlignment="Top" Width="69"/>
+                            <DataGrid IsEnabled="False" x:Name="dgvDatosmier" SelectedCellsChanged="DgvDatosmier_SelectedCellsChanged" IsReadOnly="True" Background="#ededed" CanUserAddRows="False" HorizontalAlignment="Left" Height="362" Margin="0,-2,0,0" VerticalAlignment="Top" Width="69"/>
+                            <DataGrid IsEnabled="False" x:Name="dgvDatosjue" SelectedCellsChanged="DgvDatosjue_SelectedCellsChanged" IsReadOnly="True" Background="#ededed" CanUserAddRows="False" HorizontalAlignment="Left" Height="362" Margin="0,-2,0,0" VerticalAlignment="Top" Width="69"/>
+                            <DataGrid IsEnabled="False" x:Name="dgvDatosvier" SelectedCellsChanged="DgvDatosvie_SelectedCellsChanged" IsReadOnly="True" Background="#ededed" CanUserAddRows="False" HorizontalAlignment="Left" Height="362" Margin="0,-2,0,0" VerticalAlignment="Top" Width="69"/>
+                            <DataGrid IsEnabled="False" x:Name="dgvDatossab" SelectedCellsChanged="DgvDatossab_SelectedCellsChanged" IsReadOnly="True" Background="#ededed" CanUserAddRows="False" HorizontalAlignment="Left" Height="362" Margin="0,-2,0,0" VerticalAlignment="Top" Width="69"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="50 0 60 0">
+                            <Button x:Name="Add" Click="Add_Click" IsEnabled="False" Content="Add Schedule" Height="40" Margin="0 20 0 0" Foreground="White" Background="#06ad75"/>
+                            <Button x:Name="Addsubject" Click="Addsubject_Click" IsEnabled="False" Content="Add Class" Height="40" Margin="40 20 0 0" Foreground="White" Background="#06ad75"></Button>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="50 10 60 0">
+                            
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="Educa.TeacherViews.Subjects.TeacherSubjectView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Educa.TeacherViews.Subjects"
+             mc:Ignorable="d" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             Initialized="UserControl_Initialized" Loaded="UserControl_Loaded"
+             d:DesignHeight="550" d:DesignWidth="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Height="30" VerticalAlignment="Top" Background="#2a3f54" Margin="0,0,0,0"/>
+        <Grid Margin="0,28,0,2" Background="#ededed">
+            <StackPanel Height="418"  VerticalAlignment="Top" Margin="25,-2,0,0">
+
+                <StackPanel Orientation="Horizontal">
+                    <DataGrid x:Name="dgvDatos" IsReadOnly="True" Background="#ededed" CanUserAddRows="False" HorizontalAlignment="Left" Height="370" Margin="0,10,0,0" VerticalAlignment="Top" 
+                              SelectedCellsChanged="DgvDatos_SelectedCellsChanged" Width="272"/>
+
+                    <StackPanel VerticalAlignment="Center" Width="204">
+                        <Button IsEnabled="False" Click="BtnFirst_Click" x:Name="btnFirst" Content="First Trimester"  Foreground="White" Background="#dfa752" Margin="52,0,23,0" />
+
+                        <Button IsEnabled="False" Click="BtnSecond_Click" x:Name="btnSecond"  Content="Second Trimester" Foreground="White" Background="#56D188" Margin="52,40,25,0" />
+
+                        <Button IsEnabled="False" Click="BtnThird_Click" x:Name="btnThird"  Content="Third Trimester" Foreground="White" Background="#56D1CD" Margin="52,40,25,0" />
+                    </StackPanel>
+
+                </StackPanel>
+
+            </StackPanel>
+            <StackPanel Margin="0,421,0,1">
+                <StackPanel Height="40" Margin="20,40,0,0" Orientation="Horizontal">
+                    <Label Foreground="#2a3f54" FontSize="15" >Subject Name:</Label>
+                    <Label x:Name="lblnames" FontSize="15" Content="..." Width="135"></Label>
+                    <Label Foreground="#2a3f54" Margin="10,0,0,0" FontSize="15" >Subject's Course:</Label>
+                    <Label x:Name="lblcat" FontSize="15" Content="..." Width="84"></Label>
+                    <TextBox Visibility="Hidden" x:Name="lblid"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="300,10,0,0" Orientation="Horizontal">
+
+                </StackPanel>
+
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</UserControl>

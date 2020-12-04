@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Educa.Controles.Matter.Matters"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Educa.Controles.Matter"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid Height="25" Width="600" VerticalAlignment="Top" Background="#9d0858">
+            
+        </Grid>
+        <Grid Margin="0 25 0 0" Height="400" Width="600" Background="#c51d6a">
+            <StackPanel Orientation="Vertical">
+                <Button Margin="100 100 100 0" Width="300" Height="60" Background="#dfa752" Foreground="Black">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="BookInformationVariant" Foreground="LightGray" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Materias" FontSize="30" Foreground="LightGray" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </Button>
+                <Button Margin="100 50 100 0" Width="300" Height="60" Background="#dfa752">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="BookAdd" Foreground="LightGray" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
+                        <TextBlock Text="Categorias" FontSize="30" Foreground="LightGray" VerticalAlignment="Center" Margin="20 0"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            
+        </Grid>
+    </Grid>
+</UserControl>
