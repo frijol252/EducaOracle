@@ -205,7 +205,7 @@ namespace Educa.Administrativo.Administrator
         public void comboTown()
         {
             townImpl = new TownImpl();
-            DataTable town = townImpl.Select(sValue, sValuep);
+            DataTable town = townImpl.Select(sValue);
             comboMuni.ItemsSource = town.DefaultView;
             comboMuni.DisplayMemberPath = "name";
             comboMuni.SelectedValuePath = "id".ToString();

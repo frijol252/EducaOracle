@@ -1,0 +1,63 @@
+﻿<Window x:Class="Educa.Administrativo.Controles.Invoice.DosageView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Educa.Administrativo.Controles.Invoice" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="DosageView"  WindowStyle="None" AllowsTransparency="True" Initialized="UserControl_Initialized"
+             mc:Ignorable="d" Loaded="UserControl_Loaded" Width="727.631" Height="300">
+    <Grid Margin="0,0,25,61">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Height="30" VerticalAlignment="Top" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Background="#2a3f54" Margin="0,0,-25,0">
+            <Button x:Name="btnClose" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible" Click="BtnClose_Click">
+                <materialDesign:PackIcon Kind="Close" Foreground="White"/>
+            </Button>
+        </Grid>
+        <Grid Margin="-1,28,-23,-63" Background="#ededed">
+            <StackPanel Height="276"  VerticalAlignment="Top" Margin="0,-2,0,0">
+                <StackPanel Orientation="Horizontal" Margin="24,10,31,0">
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
+                            <Label Content="NroAuthorizacion:" FontWeight="Bold" Margin="20,0,25,0"></Label>
+                            <TextBox x:Name="txtNroAuthorizacion" Width="235" Height="30" VerticalAlignment="Top"></TextBox>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
+                            <Label Content="Dosage Key:" FontWeight="Bold" Margin="20,0,60,0"></Label>
+                            <TextBox x:Name="txtTest" Width="234" Height="30" VerticalAlignment="Top"></TextBox>
+                        </StackPanel>
+                        <StackPanel Margin="150,10,0,0" Orientation="Horizontal">
+                            <Button x:Name="btnAddGrade" Content="Change Dosages" Background="#56D188" Foreground="White" IsEnabled="True" Click="btnAddGrade_Click" Height="30" Width="242"></Button>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="20,0,0,0">
+                        <StackPanel Margin="10,0,0,5" Orientation="Horizontal">
+                            <Label Content="Actual Nro Authorization:"></Label>
+                        </StackPanel>
+                        <StackPanel Margin="10,0,0,15" Orientation="Horizontal">
+                            <Label x:Name="lblAuthotization"></Label>
+                        </StackPanel>
+
+                        <StackPanel Margin="10,0,0,5" Orientation="Horizontal">
+                            <Label Content="Actual Dosage Key:"></Label>
+                        </StackPanel>
+                        <StackPanel Margin="10,0,0,30" Orientation="Horizontal">
+                            <Label x:Name="lbldosageKey"></Label>
+                        </StackPanel>
+
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+
+
+        </Grid>
+    </Grid>
+</Window>

@@ -8,6 +8,7 @@ using DAO;
 using System.Data;
 using Oracle.DataAccess.Client;
 using System.IO;
+using System.Globalization;
 
 namespace Implementation
 {
@@ -23,8 +24,8 @@ namespace Implementation
                             VALUES( :names, :lastName, :secondLastName, :address, :phone, 
                             :birthDate, :gender, :startDate, :email , :latitude, :longitude, :TownId, :Photo)";
 
-            string queryUser = @"INSERT INTO Users (userName, password, role,Personid)
-                            VALUES( :userName, standard_hash(:password, 'MD5'), :role, :PersonId)";
+            string queryUser = @"INSERT INTO USERACCOUNT (USERNAME, PASSWORD, ROLE,PERSONID)
+                            VALUES( :userName, STANDARD_HASH(:password, 'MD5'), :role, :PersonId);";
 
             string queryTeacher = @"INSERT INTO Teacher (Personid)
                             VALUES ( :Personid)";
@@ -209,14 +210,15 @@ namespace Implementation
             OracleCommand cmd = null;
             string query = @"SELECT P.Personid, P.names, P.lastName, 
                             COALESCE(P.secondLastName,''), P.addres, P.phone, P.birthDate,P.gender,
-                            P.status,P.registrationDate,NVL(P.updateDate,'1900-01-01'),P.startDate,
-                            NVL(P.finishDate,'1900-01-01'),P.email, P.latitude, P.longitude, P.TownId,
+                            P.status,P.registrationDate,NVL(TO_CHAR(P.updateDate),'1900-01-01'),P.startDate,
+                            NVL(TO_CHAR(P.finishDate),'1900-01-01'),P.email, P.latitude, P.longitude, P.TownId,
                             P.photo,T.teacherid FROM Person P 
                             INNER JOIN Teacher T ON T.PersonId=P.Personid WHERE P.Personid = :PersonId";
             OracleDataReader dr = null;
+            CultureInfo provider = CultureInfo.InvariantCulture;
             try
             {
-                DBImplementation.CreateBasicCommand(query);
+                cmd=DBImplementation.CreateBasicCommand(query);
                 OracleParameter[] parameters1 = new OracleParameter[1];
 
                 parameters1[0] = new OracleParameter(":PersonId", id);
@@ -224,7 +226,8 @@ namespace Implementation
                 dr = DBImplementation.ExecuteDataReaderCommand(cmd);
                 while (dr.Read())
                 {
-                    a = new Teacher(int.Parse(dr[0].ToString()), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString(), DateTime.Parse(dr[6].ToString()), dr[7].ToString(), byte.Parse(dr[8].ToString()), DateTime.Parse(dr[9].ToString()), DateTime.Parse(dr[10].ToString()), DateTime.Parse(dr[11].ToString()), DateTime.Parse(dr[12].ToString()),dr[13].ToString(),Convert.ToDouble(dr[14].ToString()), Convert.ToDouble(dr[15].ToString()),byte.Parse(dr[16].ToString()),dr[17].ToString(),int.Parse(dr[18].ToString()));
+                    a = new Teacher(int.Parse(dr[0].ToString()), dr[1].ToString(), dr[2].ToString());
+                    a.Id = int.Parse(dr[18].ToString());
                 }
             }
             catch (Exception ex)
@@ -243,7 +246,7 @@ namespace Implementation
         public DataTable Select()
         {
 
-            string query = @"SELECT P.PersonId,
+            string query = @" SELECT P.PersonId,
 P.names Names,
 P.lastName LastName, 
 COALESCE(P.secondLastName,'') SecondLastName, 
@@ -253,9 +256,9 @@ P.birthDate BirthDate,
 P.gender Gender,
 P.status Status,
 P.registrationDate Registration,
-NVL(P.updateDate,'1900-01-01') UpdateDate,
-P.startDate StartDate,
-NVL(P.finishDate,'1900-01-01') FinishDate,
+NVL(TO_CHAR(P.updateDate),'1900-01-01') UpdateDate,
+NVL(TO_CHAR(P.startDate),'1900-01-01') StartDate,
+NVL(TO_CHAR(P.finishDate),'1900-01-01') FinishDate,
 P.email Mail,
 P.latitude Latitude,
 P.longitude Longitude,
@@ -264,7 +267,7 @@ FROM Town T INNER JOIN Province PR ON PR.ProvinceId=T.ProvinceId
 INNER JOIN City C ON C.CityId=PR.CityId WHERE P.TownId=T.TownId) Location 
 FROM Person P 
 INNER JOIN Teacher T ON T.PersonId = P.Personid 
-INNER JOIN Users U ON U.Personid=P.Personid  WHERE P.status=0 AND U.role='P'";
+INNER JOIN USERACCOUNT U ON U.Personid=P.Personid  WHERE P.status=1 AND U.role='P'";
             try
             {
                 OracleCommand cmd = DBImplementation.CreateBasicCommand(query);
@@ -277,7 +280,7 @@ INNER JOIN Users U ON U.Personid=P.Personid  WHERE P.status=0 AND U.role='P'";
         public DataTable SelectDis()
         {
 
-            string query = @"SELECT P.PersonId,
+            string query = @" SELECT P.PersonId,
 P.names Names,
 P.lastName LastName, 
 COALESCE(P.secondLastName,'') SecondLastName, 
@@ -287,9 +290,9 @@ P.birthDate BirthDate,
 P.gender Gender,
 P.status Status,
 P.registrationDate Registration,
-NVL(P.updateDate,'1900-01-01') UpdateDate,
-P.startDate StartDate,
-NVL(P.finishDate,'1900-01-01') FinishDate,
+NVL(TO_CHAR(P.updateDate),'1900-01-01') UpdateDate,
+NVL(TO_CHAR(P.startDate),'1900-01-01') StartDate,
+NVL(TO_CHAR(P.finishDate),'1900-01-01') FinishDate,
 P.email Mail,
 P.latitude Latitude,
 P.longitude Longitude,
@@ -298,7 +301,7 @@ FROM Town T INNER JOIN Province PR ON PR.ProvinceId=T.ProvinceId
 INNER JOIN City C ON C.CityId=PR.CityId WHERE P.TownId=T.TownId) Location 
 FROM Person P 
 INNER JOIN Teacher T ON T.PersonId = P.Personid 
-INNER JOIN Users U ON U.Personid=P.Personid  WHERE P.status=0 AND U.role='P'";
+INNER JOIN USERACCOUNT U ON U.Personid=P.Personid  WHERE P.status=0 AND U.role='P'";
             try
             {
                 OracleCommand cmd = DBImplementation.CreateBasicCommand(query);
@@ -321,9 +324,9 @@ P.birthDate BirthDate,
 P.gender Gender,
 P.status Status,
 P.registrationDate Registration,
-NVL(P.updateDate,'1900-01-01') UpdateDate,
+NVL(TO_CHAR(P.updateDate),'1900-01-01') UpdateDate,
 P.startDate StartDate,
-NVL(P.finishDate,'1900-01-01') FinishDate,
+NVL(TO_CHAR(P.finishDate),'1900-01-01') FinishDate,
 P.email Mail,
 P.latitude Latitude,
 P.longitude Longitude,
@@ -332,8 +335,7 @@ FROM Town T INNER JOIN Province PR ON PR.ProvinceId=T.ProvinceId
 INNER JOIN City C ON C.CityId=PR.CityId WHERE P.TownId=T.TownId) Location 
 FROM Person P 
 INNER JOIN Teacher T ON T.PersonId = P.Personid 
-INNER JOIN Users U ON U.Personid=P.Personid 
-                            WHERE P.status=1 AND U.role='P' AND 
+INNER JOIN USERACCOUNT U ON U.Personid=P.Personid  WHERE P.status=1 AND U.role='P' AND 
                             ((P.names LIKE :names) OR (P.lastName LIKE :last) OR (P.secondLastName LIKE :second))";
             try
             {

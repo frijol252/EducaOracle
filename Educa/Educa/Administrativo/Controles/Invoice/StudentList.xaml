@@ -1,0 +1,53 @@
+﻿<Window x:Class="Educa.Administrativo.Controles.Invoice.StudentList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Educa.Administrativo.Controles.Invoice" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="StudentList" WindowStyle="None" AllowsTransparency="True" Loaded="Window_Loaded" Initialized="Window_Initialized"
+             d:DesignHeight="634.825" d:DesignWidth="987.354">
+    <Grid>
+        <Grid Height="30" VerticalAlignment="Top" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Background="#2a3f54" Margin="0,0,3,0">
+            <Button x:Name="btnClose" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible" Click="BtnClose_Click">
+                <materialDesign:PackIcon Kind="Close" Foreground="White"/>
+            </Button>
+        </Grid>
+        <Grid Margin="-25,28,-4,-3" Background="#ededed">
+            <StackPanel Height="440"  VerticalAlignment="Top" Margin="0,-2,0,0">
+                <StackPanel Orientation="Horizontal" Margin="24,10,24,0">
+                    <materialDesign:PackIcon Kind="Search" FontWeight="Bold" Foreground="#2a3f54" VerticalAlignment="Bottom" Margin="0 4"/>
+                    <TextBox x:Name="txtsearch" TextChanged="Txtsearch_TextChanged" Foreground="Black" Width="932" materialDesign:HintAssist.Hint="Search" materialDesign:HintAssist.Foreground="#06ad75" Height="33" ></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <DataGrid x:Name="dgvDatos" IsReadOnly="True" Background="#ededed" CanUserAddRows="False" SelectedCellsChanged="DgvDatos_SelectedCellsChanged" HorizontalAlignment="Left" Height="246" Margin="20,10,0,0" VerticalAlignment="Top" Width="680"/>
+
+                    <StackPanel VerticalAlignment="Center" Width="299">
+                        <Image Margin="40,0,0,0" Width="200" Height="200" x:Name="imagesector"></Image>
+                        <StackPanel Orientation="Horizontal">
+                            <Button  x:Name="btnAdd" Content="See Payments" Foreground="White" Background="#dfa752" Width="219" Click="BtnAdd_Click" Margin="30,40,0,0" Height="32"></Button>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"/>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+            </StackPanel>
+            <StackPanel Margin="0,400,0,0">
+                <StackPanel Height="40" Margin="60,40,0,0" Orientation="Horizontal">
+                    <Label Foreground="#2a3f54" FontSize="15" >Student Name:</Label>
+                    <Label x:Name="lblnames" FontSize="15" Content="..." Width="50"></Label>
+                    <Label Foreground="#2a3f54" Margin="60,0,0,0" FontSize="15" >Pending Payments:</Label>
+                    <Label x:Name="lblmail" FontSize="15" Content="..." Width="250"></Label>
+                    <TextBox Visibility="Hidden" x:Name="lblid"></TextBox>
+                </StackPanel>
+                <StackPanel Margin="300,10,0,0" Orientation="Horizontal">
+
+                </StackPanel>
+
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Window>

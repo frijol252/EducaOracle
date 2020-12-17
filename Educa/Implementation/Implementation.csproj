@@ -47,8 +47,13 @@
     <Compile Include="ClassImpl.cs" />
     <Compile Include="CourseImpl.cs" />
     <Compile Include="DBImplementation.cs" />
+    <Compile Include="DosageImpl.cs" />
     <Compile Include="GradeImpl.cs" />
     <Compile Include="HorarioImpl.cs" />
+    <Compile Include="InvoiceImpl.cs" />
+    <Compile Include="Payer.cs" />
+    <Compile Include="PayerImpl.cs" />
+    <Compile Include="PaymentImpl.cs" />
     <Compile Include="PersonImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProvinceImpl.cs" />
@@ -60,6 +65,10 @@
     <Compile Include="UserImpl.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ControlCodeDosage\ControlCodeDosage.csproj">
+      <Project>{6f93aa47-8b5b-4fe6-89f9-ad265803d6dc}</Project>
+      <Name>ControlCodeDosage</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DAO\DAO.csproj">
       <Project>{f80395c6-7544-46a9-a62b-76eabb7af0c2}</Project>
       <Name>DAO</Name>

@@ -92,6 +92,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Administrativo\Controles\Invoice\DosageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administrativo\Controles\Invoice\PaymentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administrativo\Controles\Invoice\StudentList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Administrativo\Controles\Matter\Matters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -196,6 +208,15 @@
     </Compile>
     <Compile Include="Administrativo\Controles\Account\ModifAccount.xaml.cs">
       <DependentUpon>ModifAccount.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administrativo\Controles\Invoice\DosageView.xaml.cs">
+      <DependentUpon>DosageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administrativo\Controles\Invoice\PaymentView.xaml.cs">
+      <DependentUpon>PaymentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Administrativo\Controles\Invoice\StudentList.xaml.cs">
+      <DependentUpon>StudentList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Administrativo\Students\StudentAdd.xaml.cs">
       <DependentUpon>StudentAdd.xaml</DependentUpon>

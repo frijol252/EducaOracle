@@ -59,14 +59,14 @@ INNER JOIN Matter M ON C.idMatter=M.idMatter
 INNER JOIN Course CO ON CO.idCourse=C.idCourse
 INNER JOIN Teacher T ON T.teacherid=C.teacherid
 INNER JOIN Person P ON P.Personid=T.PersonId
-INNER JOIN Users U ON U.Personid=P.Personid
-WHERE U.UserId= :user AND C.status=2";
+INNER JOIN USERACCOUNT U ON U.Personid=P.Personid
+WHERE U.UserId= :userid AND C.status=2";
             try
             {
                 OracleCommand cmd = DBImplementation.CreateBasicCommand(query);
                 OracleParameter[] parameters1 = new OracleParameter[1];
 
-                parameters1[0] = new OracleParameter(":user", iduser);
+                parameters1[0] = new OracleParameter(":userid", iduser);
                 cmd.Parameters.AddRange(parameters1);
                 return DBImplementation.ExecuteDataTableCommand(cmd);
             }

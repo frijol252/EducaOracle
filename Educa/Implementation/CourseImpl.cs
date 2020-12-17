@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Model;
 using DAO;
 using System.Data;
 using Model;
@@ -30,13 +29,13 @@ status Status, registrationDate Registration,NVL(updateDate, '01-01-1993') Updat
         public DataTable Selectlike(string like)
         {
 
-            string query = "SELECT idCourse,numberCourse||letterCourse Course,section Section,status Status,registrationDate Registration,updateDate UpdateDate FROM Course WHERE numberCourse||letterCourse LIKE :like OR section LIKE :like OR numberCourse||letterCourse||section LIKE :like OR numberCourse||letterCourse||' '||section LIKE :like";
+            string query = "SELECT idCourse,numberCourse||letterCourse Course,section Section,status Status,registrationDate Registration,updateDate UpdateDate FROM Course WHERE numberCourse||letterCourse LIKE :likes OR section LIKE :likes OR numberCourse||letterCourse||section LIKE :likes OR numberCourse||letterCourse||' '||section LIKE :likes";
             try
             {
                 OracleCommand cmd = DBImplementation.CreateBasicCommand(query);
                 OracleParameter[] parameters1 = new OracleParameter[1];
 
-                parameters1[0] = new OracleParameter(":like", "%" + like + "%");
+                parameters1[0] = new OracleParameter(":likes", "%" + like + "%");
                 cmd.Parameters.AddRange(parameters1);
                 return DBImplementation.ExecuteDataTableCommand(cmd);
             }

@@ -51,6 +51,7 @@
                     <Label Foreground="#2a3f54" Margin="60,0,0,0" FontSize="15" >CourseSubjectect:</Label>
                     <Label x:Name="lblcat" FontSize="15" Content="..." Width="250"></Label>
                     <TextBox Visibility="Hidden" x:Name="lblid"></TextBox>
+
                 </StackPanel>
                 <StackPanel Margin="300,10,0,0" Orientation="Horizontal">
 

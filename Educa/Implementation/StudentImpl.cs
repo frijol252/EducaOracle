@@ -26,7 +26,7 @@ namespace Implementation
       ,P.names ,P.lastName
       ,P.secondLastName ,S.rudeNumber,P.email,P.gender,P.phone ,P.addres   ,P.birthDate ,
 	  P.status , P.registrationDate
-      ,(NVL(P.updateDate,'1993-01-01')) ,(NVL(P.startDate,'1993-01-01')),(NVL(P.finishDate,'1993-01-01')) ,P.latitude,P.longitude,P.TownId,P.photo ,
+      ,(NVL(TO_CHAR(P.updateDate),'1993-01-01')) ,(NVL(TO_CHAR(P.startDate),'1993-01-01')),(NVL(TO_CHAR(P.finishDate),'1993-01-01')) ,P.latitude,P.longitude,P.TownId,P.photo ,
 	  S.studentId
 	  FROM Person P left JOIN Student S ON S.PersonId=P.PersonId WHERE S.idCourse= :Course AND P.PersonId= :PersonId";
             OracleDataReader dr = null;
@@ -123,7 +123,7 @@ namespace Implementation
 	  FROM Town T INNER JOIN Province PP ON PP.ProvinceId=T.ProvinceId
 	  INNER JOIN City C ON C.CityId=PP.CityId WHERE T.TownId=P.TownId),P.photo ,
 	  S.studentId
-      FROM Person P left JOIN Student S ON S.PersonId = P.PersonId WHERE S.idCourse = :Course AND P.names||' '||P.lastName||' '||P.secondLastName like :like
+      FROM Person P left JOIN Student S ON S.PersonId = P.PersonId WHERE S.idCourse = :Course AND P.names||' '||P.lastName||' '||P.secondLastName like :likes
  AND P.status=1";
             try
             {
@@ -131,7 +131,7 @@ namespace Implementation
                 OracleParameter[] parameters1 = new OracleParameter[2];
 
                 parameters1[0] = new OracleParameter(":Course", id);
-                parameters1[1] = new OracleParameter(":like", "%" + like + "%");
+                parameters1[1] = new OracleParameter(":likes", "%" + like + "%");
                 cmd.Parameters.AddRange(parameters1);
                 return DBImplementation.ExecuteDataTableCommand(cmd);
             }
@@ -150,7 +150,7 @@ namespace Implementation
 	  FROM Town T INNER JOIN Province PP ON PP.ProvinceId=T.ProvinceId
 	  INNER JOIN City C ON C.CityId=PP.CityId WHERE T.TownId=P.TownId),P.photo ,
 	  S.studentId
-      FROM Person P left JOIN Student S ON S.PersonId = P.PersonId WHERE S.idCourse = :Course AND P.names||' '||P.lastName||' '||P.secondLastName like :like
+      FROM Person P left JOIN Student S ON S.PersonId = P.PersonId WHERE S.idCourse = :Course AND P.names||' '||P.lastName||' '||P.secondLastName like :likes
  AND P.status=0";
             try
             {
@@ -158,7 +158,7 @@ namespace Implementation
                 OracleParameter[] parameters1 = new OracleParameter[2];
 
                 parameters1[0] = new OracleParameter(":Course", id);
-                parameters1[1] = new OracleParameter(":like", "%" + like + "%");
+                parameters1[1] = new OracleParameter(":likes", "%" + like + "%");
                 cmd.Parameters.AddRange(parameters1);
                 return DBImplementation.ExecuteDataTableCommand(cmd);
             }
@@ -169,17 +169,14 @@ namespace Implementation
         #region Insert
         public void InsertTransaction(Student t)
         {
-            string queryPerson = @"INSERT INTO Person (names, lastName, secondLastName, 
-                                addres, phone, birthDate,gender,email,
-                                latitude,longitude,TownId,photo)
-                                VALUES( :names, :lastName, :secondLastName, :address,
-                                :phone, :birthDate, :gender, :email , :latitude, :longitude, :TownId, :Photo)";
+            string queryPerson = @"INSERT INTO PERSON (NAMES,LASTNAME,SECONDLASTNAME,ADDRES, PHONE, BIRTHDATE,GENDER,EMAIL,LATITUDE,LONGITUDE,TOWNID,PHOTO)
+                                VALUES( :names,:lastName,:secondLastName,:addres,:phone,:birthdate,:gender,:email,:latitude,:longitude,:townId,:photo)";
 
-            string queryUser = @"INSERT INTO Users (userName, password, role,Personid)
-                            VALUES( :userName, standard_hash(:password, 'MD5'), :role, :PersonId)";
+            string queryUser = @"INSERT INTO USERACCOUNT (USERNAME, PASSWORD, ROLE,PERSONID)
+                            VALUES( :userName, STANDARD_HASH(:password, 'MD5'), :role, :PersonId)";
 
             string queryStudent = @"INSERT INTO Student(rudeNumber,PersonId,idCourse)
-	  VALUES( :rude, :Personid, :Course)";
+	                        VALUES( :rude, :Personid, :Course)";
 
 
             string queryAve = @"INSERT INTO AverageGradeTotal(firstTrimester)
@@ -208,63 +205,64 @@ namespace Implementation
                     subjects++;
                 }
                 int i = 3;
-                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: Start student Insert.", DateTime.Now));
-                List<OracleCommand> cmds = DBImplementation.CreateNBasicCommands(3+(subjects*7));
+                List<OracleCommand> cmds = DBImplementation.CreateNBasicCommands(2);
                 List<OracleParameter[]> parameters = new List<OracleParameter[]>();
-
-
-                int id = DBImplementation.GetIdentityFromTable("Person");
+                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: Start student Insert.", DateTime.Now ));
+                int id = DBImplementation.GetIdentityFromTable("Person"); DBImplementation.ResetIdentFromTable("Person");
                 user = users(t.Names, t.LastName, id);
 
-                cmds[0].CommandText = queryPerson;
                 parameters.Add(new OracleParameter[12]);
-                
-                
-                
 
-                parameters[0][0] = new OracleParameter(":names", t.Names);
+                cmds[0].CommandText = queryPerson;
+                parameters[0][0] = new OracleParameter(":names",t.Names);
                 parameters[0][1] = new OracleParameter(":lastName", t.LastName);
-                if (t.SecondLastName != null) parameters[0][1] = new OracleParameter(":secondLastName", t.SecondLastName); 
-                else parameters[0][1] = new OracleParameter(":secondLastName", DBNull.Value);
-                parameters[0][2] = new OracleParameter(":address", t.Address);
-                parameters[0][3] = new OracleParameter(":phone", t.Phone);
-                parameters[0][4] = new OracleParameter(":birthDate", t.BirthDate);
-                parameters[0][5] = new OracleParameter(":gender", t.Gender);
-                parameters[0][6] = new OracleParameter(":email", t.Email);
-                parameters[0][7] = new OracleParameter(":latitude", t.Latitude);
-                parameters[0][8] = new OracleParameter(":longitude", t.Longitude);
-                parameters[0][9] = new OracleParameter(":TownId", t.TownId);
-                if (t.PathImage != null)
+                if (t.SecondLastName != null) parameters[0][2] = new OracleParameter(":secondLastName", t.SecondLastName);
+                else parameters[0][2] = new OracleParameter(":secondLastName", DBNull.Value);
+                parameters[0][3] = new OracleParameter(":addres", t.Address);
+                parameters[0][4] = new OracleParameter(":phone", t.Phone);
+                parameters[0][5] = new OracleParameter(":birthdate", t.BirthDate);
+                parameters[0][6] = new OracleParameter(":gender", t.Gender);
+                parameters[0][7] = new OracleParameter(":email", t.Email);
+                parameters[0][8] = new OracleParameter(":latitude", t.Latitude);
+                parameters[0][9] = new OracleParameter(":longitude", t.Longitude);
+                parameters[0][10] = new OracleParameter(":townId", t.TownId);
+                if (t.Photo != null) 
                 {
-                    File.Copy(t.PathImage, DBImplementation.pathImages + id + ".png");
-                    parameters[0][10] = new OracleParameter(":Photo", id);
+                    File.Copy(t.Photo, DBImplementation.pathImages + id + ".png");
+                    parameters[0][11] = new OracleParameter(":photo", id); 
                 }
-                else { parameters[0][11] = new OracleParameter(":Photo", "0");  }
+                else parameters[0][11] = new OracleParameter(":photo", "0");
                 cmds[0].Parameters.AddRange(parameters[0]);
-
+                
                 cmds[1].CommandText = queryUser;
-                parameters.Add(new OracleParameter[4]);
-                parameters[1][0] = new OracleParameter(":PersonId", id);
-                parameters[1][1] = new OracleParameter(":userName", user.UserName);
-                parameters[1][2] = new OracleParameter(":password", user.Password);
-                parameters[1][3] = new OracleParameter(":role", user.Role);
-                cmds[1].Parameters.AddRange(parameters[1]);
 
+                parameters.Add(new OracleParameter[4]);
+                parameters[1][0] = new OracleParameter(":userName", user.UserName);
+                parameters[1][1] = new OracleParameter(":password", user.Password);
+                parameters[1][2] = new OracleParameter(":role", "E");
+                parameters[1][3] = new OracleParameter(":PersonId", id);
+
+                cmds[1].Parameters.AddRange(parameters[1]);
+                /*
                 cmds[2].CommandText = queryStudent;
                 parameters.Add(new OracleParameter[3]);
-                parameters[2][0] = new OracleParameter(":PersonId", id);
-                parameters[2][1] = new OracleParameter(":rude", t.RudeNumber);
+                
+                parameters[2][0] = new OracleParameter(":rude", t.RudeNumber);
+                parameters[2][1] = new OracleParameter(":PersonId", id);
                 parameters[2][2] = new OracleParameter(":Course", t.IdCourse);
                 cmds[2].Parameters.AddRange(parameters[2]);
 
-                int idstudent = DBImplementation.GetIdentityFromTable("Student");
-                int idgradetotal = DBImplementation.GetIdentityFromTable("Grade");
-                int idgradeincrement = DBImplementation.GetIncementFromTable("Grade");
-                int idaveragetotal = DBImplementation.GetIdentityFromTable("AverageGradeTotal");
-                int idaverageincrement = DBImplementation.GetIncementFromTable("AverageGradeTotal");
+                int idstudent = DBImplementation.GetIdentityFromTable("STUDENT");
+                DBImplementation.ResetIdentFromTable("STUDENT");
+                int idgradetotal = DBImplementation.GetIdentityFromTable("GRADE");
+                DBImplementation.ResetIdentFromTable("GRADE");
+                int idgradeincrement = DBImplementation.GetIncementFromTable("GRADE");
+                int idaveragetotal = DBImplementation.GetIdentityFromTable("AVERAGEGRADETOTAL");
+                DBImplementation.ResetIdentFromTable("AVERAGEGRADETOTAL");
+                int idaverageincrement = DBImplementation.GetIncementFromTable("AVERAGEGRADETOTAL");
                 int idaverage = idaveragetotal - idaverageincrement;
                 int idgrade = idgradetotal - idgradeincrement;
-               
+                
                 foreach (DataRow d in dt.Rows)
                 {
                     idaverage = idaverage + idaverageincrement;
@@ -281,8 +279,8 @@ namespace Implementation
                                 cmds[i].CommandText = queryGrades;
                                 parameters.Add(new OracleParameter[3]);
                                 parameters[i][0] = new OracleParameter(":student", idstudent);
-                                parameters[i][1] = new OracleParameter(":class", id);
-                                parameters[i][2] = new OracleParameter(":average", d[0].ToString());
+                                parameters[i][1] = new OracleParameter(":class", d[0].ToString());
+                                parameters[i][2] = new OracleParameter(":average", idaverage);
                                 cmds[i].Parameters.AddRange(parameters[i]);
                                 i++;
                                 cmds[i].CommandText = queryFirst;
@@ -296,8 +294,8 @@ namespace Implementation
                                 cmds[i].CommandText = queryGrades;
                                 parameters.Add(new OracleParameter[3]);
                                 parameters[i][0] = new OracleParameter(":student", idstudent);
-                                parameters[i][1] = new OracleParameter(":class", id);
-                                parameters[i][2] = new OracleParameter(":average", d[0].ToString());
+                                parameters[i][1] = new OracleParameter(":class", d[0].ToString());
+                                parameters[i][2] = new OracleParameter(":average", idaverage);
                                 cmds[i].Parameters.AddRange(parameters[i]);
                                 i++;
                                 cmds[i].CommandText = querySecond;
@@ -311,8 +309,8 @@ namespace Implementation
                                 cmds[i].CommandText = queryGrades;
                                 parameters.Add(new OracleParameter[3]);
                                 parameters[i][0] = new OracleParameter(":student", idstudent);
-                                parameters[i][1] = new OracleParameter(":class", id);
-                                parameters[i][2] = new OracleParameter(":average", d[0].ToString());
+                                parameters[i][1] = new OracleParameter(":class", d[0].ToString());
+                                parameters[i][2] = new OracleParameter(":average", idaverage);
                                 cmds[i].Parameters.AddRange(parameters[i]);
                                 i++;
                                 cmds[i].CommandText = queryThird;
@@ -324,12 +322,13 @@ namespace Implementation
                                 break;
                         }
                     }
+
                 }
-                
+                */
                 DBImplementation.ExecuteNBasicCommand(cmds);
                 SendEmail(t.Email, user.UserName, user.Password);
-                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: Insert student by" + Session.SessionCurrent.ToString() + " Object Send: {1}", DateTime.Now));
-                
+                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: Start student Insert Succesfuly.", DateTime.Now));
+
             }
             catch (Exception ex)
             {

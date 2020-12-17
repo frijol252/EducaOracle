@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Educa.TeacherViews.Subjects"
         
-        Title="StudenGrade" WindowStyle="None" AllowsTransparency="True"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" Initialized="UserControl_Initialized"
+        Title="StudenGrade" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStyle="None" AllowsTransparency="True" Initialized="UserControl_Initialized"
              mc:Ignorable="d" Loaded="UserControl_Loaded" Width="727.631" Height="633.083">
     <Grid Margin="0,0,25,61">
         <Grid.ColumnDefinitions>

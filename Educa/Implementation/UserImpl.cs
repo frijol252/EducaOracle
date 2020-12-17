@@ -13,7 +13,7 @@ namespace Implementation
         public DataTable Login(string userName, string password)
         {
             DataTable res = new DataTable();
-            string query = "SELECT U.UserId, U.userName, U.password, U.role, P.names||' '||P.lastName, U.revisionpass, P.email,P.photo,U.status FROM Users U INNER JOIN Person P ON P.Personid=U.Personid WHERE  U.userName=@userName AND U.password=standard_hash(:password, 'MD5')";
+            string query = "SELECT U.USERID, U.USERNAME, U.PASSWORD, U.ROLE, P.NAMES||' '||P.LASTNAME, U.REVISIONPASS, P.EMAIL,P.PHOTO,U.STATUS FROM USERACCOUNT U INNER JOIN PERSON P ON P.PERSONID=U.PERSONID WHERE  U.USERNAME=:userName AND U.PASSWORD=standard_hash(:password, 'MD5')";
             try
             {
                 OracleCommand cmd = DBImplementation.CreateBasicCommand(query);
@@ -59,14 +59,15 @@ namespace Implementation
         //UPDATE password
         public int Updatepass(User t)
         {
-            string query = @"UPDATE Users SET password=standard_hash(:password, 'MD5'), revisionpass=1, updateDate=CURRENT_TIMESTAMP WHERE UserId=@id";
+            string query = @"UPDATE USERACCOUNT SET PASSWORD=standard_hash(:password, 'MD5'), REVISIONPASS=1, UPDATEDATE=CURRENT_TIMESTAMP WHERE USERID=:Userid";
             try
             {
                 OracleCommand cmd = DBImplementation.CreateBasicCommand(query);
                 OracleParameter[] parameters1 = new OracleParameter[2];
 
-                parameters1[0] = new OracleParameter(":id", t.UserID);
-                parameters1[1] = new OracleParameter(":password", t.Password);
+                
+                parameters1[0] = new OracleParameter(":password", t.Password);
+                parameters1[1] = new OracleParameter(":Userid", t.UserID);
                 cmd.Parameters.AddRange(parameters1);
 
 

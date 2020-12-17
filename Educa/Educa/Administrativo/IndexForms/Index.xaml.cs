@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Model;
+using Implementation;
+using System.Data;
 
 namespace Educa
 {
@@ -20,6 +22,7 @@ namespace Educa
     /// </summary>
     public partial class Index : Window
     {
+        
         public Index()
         {
             InitializeComponent();
@@ -111,5 +114,7 @@ namespace Educa
         {
 
         }
+
+        
     }
 }

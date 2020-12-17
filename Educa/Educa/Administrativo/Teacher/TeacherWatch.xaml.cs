@@ -77,6 +77,7 @@ namespace Educa.Administrativo.Teacher
             {
                 try
                 {
+
                     Disabledbtn.IsEnabled = true;
                     subjects.IsEnabled = true;
                     DataRowView dataRow = (DataRowView)dgvDatos.SelectedItem;

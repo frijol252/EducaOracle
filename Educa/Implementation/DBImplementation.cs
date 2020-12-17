@@ -13,6 +13,7 @@ namespace Implementation
     {
 
         #region oracle
+        public double amount = 630;
         public static string connectionString = "DATA SOURCE = xe; PASSWORD = Univalle; USER ID = EducaOracle";
         public static string usermail = "educateam.suport@gmail.com";
         public static string passwordmail = "educa1597534682";
@@ -21,7 +22,7 @@ namespace Implementation
         public static OracleCommand CreateBasicCommand()
         {
             OracleConnection connection = new OracleConnection(connectionString);
-            
+
             OracleCommand cmd = new OracleCommand();
             cmd.Connection = connection;
             return cmd;
@@ -46,7 +47,7 @@ namespace Implementation
             }
             return res;
         }
-        
+
 
         #endregion
 
@@ -75,6 +76,7 @@ namespace Implementation
             OracleCommand cmd1 = cmds[0];
             try
             {
+                
                 cmd1.Connection.Open();
                 transaction = cmd1.Connection.BeginTransaction();
                 foreach (OracleCommand cmd in cmds)
@@ -100,6 +102,7 @@ namespace Implementation
             try
             {
                 cmd.Connection.Open();
+                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: Transact"+cmd.CommandText, DateTime.Now));
                 OracleDataAdapter adapter = new OracleDataAdapter(cmd);
                 adapter.Fill(res);
             }
@@ -152,42 +155,64 @@ namespace Implementation
         public static int GetIdentityFromTable(string table)
         {
             int res = -1;
-            string query = "SELECT "+table.ToUpper()+"_SEQ.nextval S FROM dual; ";
+            string query = "SELECT SEQ_" + table.ToUpper() + ".nextval FROM DUAL";
             try
             {
                 OracleCommand cmd = CreateBasicCommand(query);
                 res = int.Parse(ExecuteScalarCommand(cmd));
-
+                
             }
             catch (Exception ex)
             {
+
                 throw ex;
             }
+
             return res;
+
         }
 
-        public static int ResetIdentFromTable(string table)
+        public static void ResetIdentFromTable(string table)
+        {
+            int a = GetIncementFromTable(table);
+            Alter1(table,a);
+            GetIdentityFromTable(table);
+            Alter2(table, a);
+
+        }
+        #region Reset
+        public static void Alter1(string table, int a)
         {
             int res = -1;
-            string query = @"ALTER SEQUENCE " + table.ToUpper() + @"_SEQ 
-                            INCREMENT BY -"+ GetIncementFromTable(table)+ @";
-                            SELECT " + table.ToUpper() + @"_SEQ.nextval S
-                              FROM dual;
-                            ALTER SEQUENCE " + table.ToUpper() + @"_SEQ 
-                            INCREMENT BY "+ GetIncementFromTable(table)+";";
+            string query = "ALTER SEQUENCE SEQ_" + table.ToUpper() + " INCREMENT BY -"+a;
             try
             {
                 OracleCommand cmd = CreateBasicCommand(query);
-                res = int.Parse(ExecuteScalarCommand(cmd));
-
+                res = ExecuteBasicCommand(cmd);
             }
             catch (Exception ex)
             {
+
                 throw ex;
             }
-            return res;
         }
 
+        public static void Alter2(string table, int a)
+        {
+            int res = -1;
+            string query = "ALTER SEQUENCE SEQ_" + table.ToUpper() + " INCREMENT BY +" + a;
+            try
+            {
+                OracleCommand cmd = CreateBasicCommand(query);
+                res = ExecuteBasicCommand(cmd);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+        #endregion
         public static int GetNIdentityFromTable(string table, int n)
         {
             int res = -1;
@@ -224,7 +249,7 @@ namespace Implementation
         public static int GetIncementFromTable(string table)
         {
             int res = -1;
-            string query = "SELECT increment_by FROM user_sequences WHERE sequence_name = '" + table.ToUpper() + "_SEQ'";
+            string query = "SELECT increment_by FROM user_sequences WHERE sequence_name = 'SEQ_" + table.ToUpper() + "'";
             try
             {
                 OracleCommand cmd = CreateBasicCommand(query);

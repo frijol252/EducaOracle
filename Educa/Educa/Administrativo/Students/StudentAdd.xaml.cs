@@ -78,7 +78,7 @@ namespace Educa.Administrativo.Students
 
 
                     pathImagePortada = null;
-                    MessageBox.Show("Administrator Inserted");
+                    MessageBox.Show("Student Inserted");
                 }
                 else
                 {
@@ -161,8 +161,8 @@ namespace Educa.Administrativo.Students
 
         #region Combos
 
-        int idTown=0;
         CityImpl cityImpl;
+        int idcity = 0, idprovince = 0, idTown = 0;
         public void comboCity()
         {
             try
@@ -170,8 +170,8 @@ namespace Educa.Administrativo.Students
                 cityImpl = new CityImpl();
                 DataTable ciudad = cityImpl.Select();
                 comboCiudad.ItemsSource = ciudad.DefaultView;
-                comboCiudad.DisplayMemberPath = "CityName";
-                comboCiudad.SelectedValuePath = "CityId".ToString();
+                comboCiudad.DisplayMemberPath = "NAME";
+                comboCiudad.SelectedValuePath = "ID".ToString();
                 comboCiudad.SelectedIndex = 0;
             }
             catch
@@ -180,84 +180,44 @@ namespace Educa.Administrativo.Students
             }
 
         }
-        string sValue = "";
 
-        private void ComboCiudad_DropDownClosed(object sender, EventArgs e)
+        private void comboCiudad_DropDownClosed(object sender, EventArgs e)
         {
-            DataRowView oDataRowView = comboCiudad.SelectedItem as DataRowView;
-
-
-            if (oDataRowView != null)
-            {
-                sValue = oDataRowView.Row["CityName"] as string;
-            }
+            idcity = int.Parse(comboCiudad.SelectedValue.ToString());
             comboProvince();
-
         }
         ProvinceImpl provinceImpl;
         public void comboProvince()
         {
             provinceImpl = new ProvinceImpl();
-            DataTable province = provinceImpl.Select(sValue);
+            DataTable province = provinceImpl.Select(idcity.ToString());
             comboProvincia.ItemsSource = province.DefaultView;
-            comboProvincia.DisplayMemberPath = "provinceName";
-            comboProvincia.SelectedValuePath = "ProvinceId".ToString();
+            comboProvincia.DisplayMemberPath = "PROVINCENAME";
+            comboProvincia.SelectedValuePath = "PROVINCEID".ToString();
             comboProvincia.SelectedIndex = 0;
         }
-        string sValuep = "";
-        private void ComboProvincia_DropDownClosed(object sender, EventArgs e)
+        private void comboProvincia_DropDownClosed(object sender, EventArgs e)
         {
-            DataRowView oDataRowView = comboProvincia.SelectedItem as DataRowView;
 
-
-            if (oDataRowView != null)
-            {
-                sValuep = oDataRowView.Row["provinceName"] as string;
-            }
+            idprovince = int.Parse(comboProvincia.SelectedValue.ToString());
             comboTown();
         }
+
         TownImpl townImpl;
         Town town;
         public void comboTown()
         {
             townImpl = new TownImpl();
-            DataTable town = townImpl.Select(sValue, sValuep);
+            DataTable town = townImpl.Select(idprovince.ToString());
             comboMuni.ItemsSource = town.DefaultView;
-            comboMuni.DisplayMemberPath = "name";
-            comboMuni.SelectedValuePath = "id".ToString();
+            comboMuni.DisplayMemberPath = "NAME";
+            comboMuni.SelectedValuePath = "ID".ToString();
             comboMuni.SelectedIndex = 0;
         }
-        string sValueT = "";
-
-        public int Idcourse { get => idcourse; set => idcourse = value; }
-
         private void ComboMuni_DropDownClosed(object sender, EventArgs e)
         {
-            DataRowView oDataRowView = comboMuni.SelectedItem as DataRowView;
-
-
-            if (oDataRowView != null)
-            {
-                sValueT = oDataRowView.Row["name"] as string;
-            }
-            getIdTown();
-        }
-        public void getIdTown()
-        {
-            try
-            {
-
-                townImpl = new TownImpl();
-                town = townImpl.GetID(sValue, sValuep, sValueT);
-
-                idTown = byte.Parse(town.Id.ToString());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
+            idTown = int.Parse(comboMuni.SelectedValue.ToString());
+        } 
 
 
 
@@ -266,8 +226,8 @@ namespace Educa.Administrativo.Students
 
 
         #endregion
-        
 
-        
+
+
     }
 }

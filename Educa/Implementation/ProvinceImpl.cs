@@ -16,13 +16,13 @@ namespace Implementation
         public DataTable Select(string id)
         {
 
-            string query = "SELECT ProvinceId, provinceName FROM Province WHERE state=1 and CityId=(SELECT CityId FROM City WHERE CityName= :CityId)";
+            string query = "SELECT PROVINCEID, PROVINCENAME FROM Province WHERE STATE=1 and CITYID=:CityId";
             try
             {
                 OracleCommand cmd = DBImplementation.CreateBasicCommand(query);
                 OracleParameter[] parameters1 = new OracleParameter[1];
 
-                parameters1[0] = new OracleParameter(":CityId", id);
+                parameters1[0] = new OracleParameter(":CityId", int.Parse(id));
                 cmd.Parameters.AddRange(parameters1);
                 return DBImplementation.ExecuteDataTableCommand(cmd);
             }

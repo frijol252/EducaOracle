@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Educa.Administrativo.Students"
-        mc:Ignorable="d" WindowStyle="None" AllowsTransparency="True" Initialized="Window_Initialized" Loaded="Window_Loaded"
-        Title="StudentAdd" Height="550" Width="860">
+        mc:Ignorable="d" 
+        Title="StudentAdd" Height="550" Width="860" WindowStyle="None" AllowsTransparency="True" Initialized="Window_Initialized" Loaded="Window_Loaded">
     <Grid>
         <Grid Height="30" VerticalAlignment="Top" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Background="#2a3f54" Margin="0,0,1,0">
             <Button x:Name="btnClose" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible" Click="BtnClose_Click">

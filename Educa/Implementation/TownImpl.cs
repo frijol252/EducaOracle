@@ -12,17 +12,16 @@ namespace Implementation
 {
     public class TownImpl
     {
-        public DataTable Select(string id, string id2)
+        public DataTable Select(string id)
         {
 
-            string query = "SELECT DISTINCT T.TownId id, T.townName name FROM Town T INNER JOIN Province P ON T.ProvinceId=(SELECT ProvinceId FROM Province WHERE provinceName= :ProvinceName) INNER JOIN City C ON (SELECT CityId FROM Province WHERE provinceName= :ProvinceName)=(SELECT CityId FROM City WHERE CityName= :CityName)";
+            string query = "SELECT TOWNID ID, TOWNNAME NAME FROM Town  WHERE PROVINCEID=:ProvinceName";
             try
             {
                 OracleCommand cmd = DBImplementation.CreateBasicCommand(query);
-                OracleParameter[] parameters1 = new OracleParameter[2];
+                OracleParameter[] parameters1 = new OracleParameter[1];
 
-                parameters1[0] = new OracleParameter(":CityName", id);
-                parameters1[1] = new OracleParameter(":ProvinceName", id2);
+                parameters1[0] = new OracleParameter(":ProvinceName", int.Parse(id));
                 cmd.Parameters.AddRange(parameters1);
                 return DBImplementation.ExecuteDataTableCommand(cmd);
             }

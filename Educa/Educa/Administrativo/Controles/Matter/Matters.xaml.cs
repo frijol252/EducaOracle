@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Model;
 
 namespace Educa.Controles.Matter
 {
@@ -28,6 +29,25 @@ namespace Educa.Controles.Matter
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Administrativo.Controles.Invoice.StudentList a = new Administrativo.Controles.Invoice.StudentList();
+            a.Show();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (Session.SessionRole != "D")
+            {
+                MessageBox.Show("You can't use this option");
+            }
+            else
+            {
+                Administrativo.Controles.Invoice.DosageView d = new Administrativo.Controles.Invoice.DosageView();
+                d.Show();
+            }
         }
     }
 }

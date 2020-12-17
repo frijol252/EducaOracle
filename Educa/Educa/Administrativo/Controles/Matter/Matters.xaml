@@ -8,21 +8,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid Height="25" Width="600" VerticalAlignment="Top" Background="#9d0858">
+        <Grid Height="50" Width="800" VerticalAlignment="Top" Background="#2a3f54">
             
         </Grid>
-        <Grid Margin="0 25 0 0" Height="400" Width="600" Background="#c51d6a">
+        <Grid Margin="0 25 0 0" Height="400" Width="800" Background="#ededed">
             <StackPanel Orientation="Vertical">
-                <Button Margin="100 100 100 0" Width="300" Height="60" Background="#dfa752" Foreground="Black">
+                <Button Margin="100 100 100 0" Width="300" Height="60" Background="#dfa752" Foreground="Black" Click="Button_Click">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="BookInformationVariant" Foreground="LightGray" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
-                        <TextBlock Text="Materias" FontSize="30" Foreground="LightGray" VerticalAlignment="Center" Margin="20 0"/>
+                        <TextBlock Text="Payments" FontSize="30" Foreground="LightGray" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </Button>
-                <Button Margin="100 50 100 0" Width="300" Height="60" Background="#dfa752">
+                <Button Margin="100 50 100 0" Width="300" Height="60" Background="#dfa752" Click="Button_Click_1">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="BookAdd" Foreground="LightGray" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
-                        <TextBlock Text="Categorias" FontSize="30" Foreground="LightGray" VerticalAlignment="Center" Margin="20 0"/>
+                        <TextBlock Text="Dosage" FontSize="30" Foreground="LightGray" VerticalAlignment="Center" Margin="20 0"/>
                     </StackPanel>
                 </Button>
             </StackPanel>

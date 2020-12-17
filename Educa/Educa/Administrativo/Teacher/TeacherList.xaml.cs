@@ -138,7 +138,6 @@ namespace Educa.Administrativo.Teacher
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message);
             }
         }
         private void SendEmail(string email, string username, string password)
@@ -164,7 +163,6 @@ namespace Educa.Administrativo.Teacher
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString());
                 }
             
             #endregion
@@ -178,6 +176,7 @@ namespace Educa.Administrativo.Teacher
             {
                 try
                 {
+                    
                     modif();
                     DataRowView dataRow = (DataRowView)dgvDatos.SelectedItem;
                     int id = int.Parse(dataRow.Row.ItemArray[0].ToString());
@@ -217,7 +216,6 @@ namespace Educa.Administrativo.Teacher
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
                 }
             }
         }
@@ -237,7 +235,7 @@ namespace Educa.Administrativo.Teacher
                 dgvDatos.ItemsSource = teacherimpl.Select().DefaultView;
 
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception ex) {  }
         }
         private void ocultar()
         {
@@ -274,7 +272,6 @@ namespace Educa.Administrativo.Teacher
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
             }
 
         }
@@ -335,7 +332,6 @@ namespace Educa.Administrativo.Teacher
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
             }
             
         }
@@ -451,7 +447,7 @@ namespace Educa.Administrativo.Teacher
         public void comboTown()
         {
             townImpl = new TownImpl();
-            DataTable town = townImpl.Select(sValue,sValuep);
+            DataTable town = townImpl.Select(sValue);
             comboMuni.ItemsSource = town.DefaultView;
             comboMuni.DisplayMemberPath = "name";
             comboMuni.SelectedValuePath = "id".ToString();
@@ -532,7 +528,7 @@ namespace Educa.Administrativo.Teacher
         public void comboTownMod()
         {
             townImpl = new TownImpl();
-            DataTable town = townImpl.Select(sValue, sValuep);
+            DataTable town = townImpl.Select(sValue);
             comboMuniMod.ItemsSource = town.DefaultView;
             comboMuniMod.DisplayMemberPath = "name";
             comboMuniMod.SelectedValuePath = "id".ToString();

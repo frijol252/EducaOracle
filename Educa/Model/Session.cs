@@ -9,9 +9,9 @@ namespace Model
     public class Session
     {
         private static int sessionID;
-        private static string sessionUser;
+        private static string sessionUser="";
         private static string sessionRole;
-        private static string sessionCurrent;
+        private static string sessionCurrent="";
         private static string sessionEmail;
         private static string sessionphoto;
         private static string sessionstat;

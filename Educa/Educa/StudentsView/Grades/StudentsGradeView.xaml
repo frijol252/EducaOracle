@@ -6,14 +6,14 @@
              xmlns:local="clr-namespace:Educa.StudentsView.Grades"
              mc:Ignorable="d" 
              Initialized="UserControl_Initialized" Loaded="UserControl_Loaded"
-             d:DesignHeight="450" Width="718.046">
+             d:DesignHeight="450" Width="1000">
     <Grid Margin="0,0,-2,0">
         <Grid Height="30" VerticalAlignment="Top" Background="#2a3f54" />
         <Grid Margin="-2,29,1,-2" Background="#ededed">
             <Label FontWeight="Bold" Content="Grade List" FontSize="35" Margin="10,0,0,0"></Label>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"  Margin="10,60,0,17" Width="677">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"  Margin="10,60,0,17" Width="956">
 
-                <DataGrid HorizontalScrollBarVisibility="Hidden" x:Name="dgvDatos"  IsReadOnly="True" Background="#ededed" CanUserAddRows="False" HorizontalAlignment="Left" Height="340" Margin="20,-2,0,0" VerticalAlignment="Top" Width="655"/>
+                <DataGrid HorizontalScrollBarVisibility="Hidden" x:Name="dgvDatos"  IsReadOnly="True" Background="#ededed" CanUserAddRows="False" HorizontalAlignment="Left" Height="340" Margin="20,-2,0,0" VerticalAlignment="Top" Width="928"/>
             </StackPanel>
 
 

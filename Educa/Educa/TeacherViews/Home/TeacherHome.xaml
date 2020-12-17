@@ -86,6 +86,7 @@
                     <materialDesign:PackIcon Kind="Menu" Foreground="Black"/>
                 </Button>
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Label x:Name="lblasd"></Label>
                     <TextBlock Text="Educa DB" VerticalAlignment="Center" FontSize="20" FontFamily="Champagne &amp; Limousines" Margin="20 0"/>
 
                 </StackPanel>

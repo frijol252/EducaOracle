@@ -84,12 +84,18 @@ namespace Educa
                                     this.Visibility = Visibility.Hidden;
                                     hecho.IsOpen = false;
                                     break;
-                                case ("E"):
-                                    StudentsView.Home.IndexStudent es = new StudentsView.Home.IndexStudent();
-                                    es.Show();
+                                case ("D"):
+                                    Educa.Index J = new Educa.Index();
+                                    J.Show();
                                     this.Visibility = Visibility.Hidden;
                                     hecho.IsOpen = false;
                                     break;
+                                case ("E"):
+                                        StudentsView.Home.IndexStudent es = new StudentsView.Home.IndexStudent();
+                                        es.Show();
+                                        this.Visibility = Visibility.Hidden;
+                                        hecho.IsOpen = false;
+                                        break;
                             }
                         }
                     

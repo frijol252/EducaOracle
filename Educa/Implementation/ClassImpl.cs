@@ -36,12 +36,12 @@ namespace Implementation
         public DataTable Selectlike(int id,string like)
         {
 
-            string query = @"SELECT CL.idClass,M.matterName AS 'Subject Name',CONCAT(C.numberCourse,C.letterCourse) AS 'Course',(SELECT CONCAT(names,' ',lastName)  FROM Person P
-INNER JOIN Teacher T ON T.PersonId = P.Personid WHERE T.teacherid = CL.teacherid) AS 'Teacher' FROM Class CL
-INNER JOIN Matter M ON M.idMatter = CL.idMatter
-INNER JOIN Course C ON C.idCourse = CL.idCourse
-WHERE CL.idCourse = @Course AND ((SELECT CONCAT(names,' ',lastName)  FROM Person P
-INNER JOIN Teacher T ON T.PersonId = P.Personid WHERE T.teacherid = CL.teacherid) LIKE @like OR M.matterName LIKE @like) AND CL.status>0";
+            string query = @"    SELECT CL.idClass,M.matterName SubjectName,C.numberCourse||C.letterCourse Course,(SELECT names||' '||lastName  FROM Person P
+  INNER JOIN Teacher T ON T.PersonId=P.Personid WHERE T.teacherid=CL.teacherid) Teacher FROM Class CL 
+  INNER JOIN Matter M ON M.idMatter=CL.idMatter
+  INNER JOIN Course C ON C.idCourse=CL.idCourse
+WHERE CL.idCourse = :Course AND ((SELECT names||' '||lastName  FROM Person P
+INNER JOIN Teacher T ON T.PersonId = P.Personid WHERE T.teacherid = CL.teacherid) LIKE :likes OR M.matterName LIKE :likes) AND CL.status>0";
             try
             {
                 OracleCommand cmd = DBImplementation.CreateBasicCommand(query);
@@ -49,7 +49,7 @@ INNER JOIN Teacher T ON T.PersonId = P.Personid WHERE T.teacherid = CL.teacherid
                 OracleParameter[] parameters1 = new OracleParameter[2];
 
                 parameters1[0] = new OracleParameter(":Course", id);
-                parameters1[1] = new OracleParameter(":like", "%" + like + "%");
+                parameters1[1] = new OracleParameter(":likes", "%" + like + "%");
 
                 cmd.Parameters.AddRange(parameters1);
                 return DBImplementation.ExecuteDataTableCommand(cmd);
@@ -65,14 +65,11 @@ INNER JOIN Teacher T ON T.PersonId = P.Personid WHERE T.teacherid = CL.teacherid
         public DataTable SelectTeacherActive(int id)
         {
 
-            string query = @"SELECT CL.idClass,M.matterName AS 'Subject Name',CONCAT(C.numberCourse,C.letterCourse) AS 'Course',
-STUFF(
-    (SELECT DISTINCT ', ' + S.day
-    FROM ClassSchedules CSS
+            string query = @"SELECT CL.idClass,M.matterName SubjectName,CONCAT(C.numberCourse,C.letterCourse) Course,
+(select  listagg(DAYSS, ', ') within group (order by DAYSS)
+  FROM (SELECT DISTINCT S.DAY DAYSS FROM ClassSchedules CSS
     INNER JOIN Schedules S ON S.schedulesid= CSS.schedulesid
-    WHERE CSS.idClass = CL.idClass
-    FOR XML PATH ('')),
-1,2, '') AS 'Days'
+    WHERE CSS.idClass = CL.idClass)) Days
 FROM Class CL 
   INNER JOIN Matter M ON M.idMatter=CL.idMatter
   INNER JOIN Teacher T ON T.teacherid=CL.teacherid
@@ -94,15 +91,11 @@ FROM Class CL
         public DataTable SelectTeacherAdd(int id)
         {
 
-            string query = @"SELECT DISTINCT C.idClass,M.matterName AS 'Subject Name',CONCAT(CO.numberCourse,CO.letterCourse) AS 'Course',
-STUFF(
-    (SELECT DISTINCT ', ' + S.day
-    FROM ClassSchedules CSS
+            string query = @"SELECT DISTINCT C.idClass,M.matterName SubjectName,CO.numberCourse||CO.letterCourse Course,
+(select  listagg(DAYSS, ', ') within group (order by DAYSS)
+  FROM (SELECT DISTINCT S.DAY DAYSS FROM ClassSchedules CSS
     INNER JOIN Schedules S ON S.schedulesid= CSS.schedulesid
-	
-    WHERE CSS.idClass = C.idClass
-    FOR XML PATH ('')),
-1,2, '') AS 'Days'
+    WHERE CSS.idClass = C.idClass)) Days
  FROM Class C INNER JOIN ClassSchedules CS ON CS.idClass=C.idClass
  INNER JOIN Matter M ON M.idMatter=C.idMatter
   INNER JOIN Course CO ON CO.idCourse=C.idCourse
@@ -112,8 +105,7 @@ WHERE CS.schedulesid IN(SELECT CS.schedulesid
   FROM Teacher T
   INNER JOIN Class CL ON CL.teacherid=T.teacherid
   INNER JOIN ClassSchedules CS ON CS.idClass=CL.idClass
-  
-  WHERE T.teacherid= :Teacher)));";
+  WHERE T.teacherid=:Teacher)))";
             try
             {
                 OracleCommand cmd = DBImplementation.CreateBasicCommand(query);
@@ -129,19 +121,17 @@ WHERE CS.schedulesid IN(SELECT CS.schedulesid
         public DataTable SelectTeacherAdd(string like)
         {
 
-            string query = @"SELECT C.idClass,M.matterName AS 'Subject Name',CONCAT(CO.numberCourse,CO.letterCourse) AS 'Course',
-STUFF(
-    (SELECT DISTINCT ', ' + S.day
-    FROM ClassSchedules CSS
+            string query = @"SELECT C.idClass,M.matterName SubjectName,CONCAT(CO.numberCourse,CO.letterCourse) Course,
+(select  listagg(DAYSS, ', ') within group (order by DAYSS)
+  FROM (SELECT DISTINCT S.DAY DAYSS FROM ClassSchedules CSS
     INNER JOIN Schedules S ON S.schedulesid= CSS.schedulesid
-    WHERE CSS.idClass = C.idClass
-    FOR XML PATH ('')),
-1,2, '') AS 'Days'
+    WHERE CSS.idClass = C.idClass)) Days
 FROM Class C INNER JOIN Matter M ON C.idMatter=M.idMatter
-INNER JOIN Course CO ON CO.idCourse=C.idCourse WHERE (M.matterName LIKE :like
-OR CONCAT(CO.numberCourse,CO.letterCourse) LIKE :like 
-OR CONCAT(M.matterName,CO.numberCourse,CO.letterCourse) LIKE :like
-OR CONCAT(CO.numberCourse,CO.letterCourse,' ',M.matterName) LIKE :like ) AND C.status=1";
+INNER JOIN Course CO ON CO.idCourse=C.idCourse 
+WHERE (M.MATTERNAME LIKE :like)
+OR CO.numberCourse||CO.letterCourse LIKE :like 
+OR M.matterName||CO.numberCourse||CO.letterCourse LIKE :like
+OR CO.numberCourse||CO.letterCourse||' '||M.matterName LIKE :like ) AND C.status=1";
             try
             {
                 OracleCommand cmd = DBImplementation.CreateBasicCommand(query);
@@ -160,34 +150,40 @@ OR CONCAT(CO.numberCourse,CO.letterCourse,' ',M.matterName) LIKE :like ) AND C.s
         //INSERT TEACHER SUBJECTS
         public void InsertTeacherSubject(Class c)
         {
-            string queryClass = @"UPDATE Class SET teacherid= :teacher, status=2 WHERE idClass= :class";
+            string queryClass = @"  UPDATE CLASS SET TEACHERID= :teacher, STATUS=2 WHERE IDCLASS= :class";
+
+
+
 
             try
             {
+                int i = 1;
                 System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: Start Add Class to Teacher.", DateTime.Now));
                 List<OracleCommand> cmds = DBImplementation.CreateNBasicCommands(1);
 
                 OracleParameter[] parameters1 = new OracleParameter[2];
                 cmds[0].CommandText = queryClass;
                 parameters1[0] = new OracleParameter(":teacher", c.TeacherId);
-                parameters1[0] = new OracleParameter(":class", c.IdClass);
+                parameters1[1] = new OracleParameter(":class", c.IdClass);
                 cmds[0].Parameters.AddRange(parameters1);
 
                 cmds[0].CommandText = queryClass;
 
 
+
+
                 DBImplementation.ExecuteNBasicCommand(cmds);
-                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: Add Class to Teacher" + Session.SessionCurrent.ToString() + " Object Send: {1}", DateTime.Now));
+                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: Dele Class by" + Session.SessionCurrent.ToString() + " Object Send: {1}", DateTime.Now));
 
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Error:  Could not Add Class to Teacher({1}).", DateTime.Now, ex.Message));
+                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Error:  Could not Dele Class({1}).", DateTime.Now, ex.Message));
             }
         }
         public void DelTeacherSubject(Class c)
         {
-            string queryClass = @"UPDATE Class SET teacherid=6014, status=1 WHERE idClass= :class";
+            string queryClass = @"UPDATE Class SET teacherid=21, status=1 WHERE idClass= :class";
 
             try
             {
@@ -242,12 +238,17 @@ OR CONCAT(CO.numberCourse,CO.letterCourse,' ',M.matterName) LIKE :like ) AND C.s
 
             try
             {
+                int reset;
                 int i = 1;
                 int idgradetotal= DBImplementation.GetIdentityFromTable("Grade");
+                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: 1.", DateTime.Now));
+                DBImplementation.ResetIdentFromTable("Grade");
                 int idgradeincrement = DBImplementation.GetIncementFromTable("Grade");
+                
                 int idgrade = idgradetotal - idgradeincrement;
                 int idaveragetotal = DBImplementation.GetIdentityFromTable("AverageGradeTotal");
                 int idaverageincrement = DBImplementation.GetIncementFromTable("AverageGradeTotal");
+                DBImplementation.ResetIdentFromTable("AverageGradeTotal");
                 int idaverage = idaveragetotal - idaverageincrement;
                 int students = 0;
                 DataTable dt = new DataTable();
@@ -261,13 +262,15 @@ OR CONCAT(CO.numberCourse,CO.letterCourse,' ',M.matterName) LIKE :like ) AND C.s
                 List<OracleParameter[]> parameters = new List<OracleParameter[]>();
 
                 int id = DBImplementation.GetIdentityFromTable("Class");
+                DBImplementation.ResetIdentFromTable("Class");
+
                 cmds[0].CommandText = queryClass;
                 parameters.Add(new OracleParameter[2]);
                 parameters[0][0] = new OracleParameter(":subject", idsub);
                 parameters[0][1] = new OracleParameter(":course", course);
                 cmds[0].Parameters.AddRange(parameters[0]);
 
-                
+                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: addclassforeach", DateTime.Now));
 
 
                 foreach (var lis in u)
@@ -280,18 +283,21 @@ OR CONCAT(CO.numberCourse,CO.letterCourse,' ',M.matterName) LIKE :like ) AND C.s
                     cmds[i].Parameters.AddRange(parameters[i]);
                     i++;
                 }
+                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: addclassforeach", DateTime.Now));
                 foreach (DataRow d in dt.Rows)
                 {
                     idaverage = idaverage + idaverageincrement;
                     cmds[i].CommandText = queryAve;
                     parameters.Add(new OracleParameter[0]);
                     i++;
+                    System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: addclassforeach", DateTime.Now));
                     for (int k = 0; k < 3; k++)
                     {
                         
                         switch (k)
                         {
                             case 0:
+                                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: addclassforeach", DateTime.Now));
                                 idgrade = idgrade + idgradeincrement;
                                 cmds[i].CommandText = queryGrades;
                                 parameters.Add(new OracleParameter[3]);
@@ -309,6 +315,7 @@ OR CONCAT(CO.numberCourse,CO.letterCourse,' ',M.matterName) LIKE :like ) AND C.s
                                 
                                 break;
                             case 1:
+                                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: addclassforeach", DateTime.Now));
                                 idgrade = idgrade + idgradeincrement;
                                 cmds[i].CommandText = queryGrades;
                                 parameters.Add(new OracleParameter[3]);
@@ -325,6 +332,7 @@ OR CONCAT(CO.numberCourse,CO.letterCourse,' ',M.matterName) LIKE :like ) AND C.s
                                 i++;
                                 break;
                             case 2:
+                                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: addclassforeach", DateTime.Now));
                                 idgrade = idgrade + idgradeincrement;
                                 cmds[i].CommandText = queryGrades;
                                 parameters.Add(new OracleParameter[3]);
@@ -333,7 +341,9 @@ OR CONCAT(CO.numberCourse,CO.letterCourse,' ',M.matterName) LIKE :like ) AND C.s
                                 parameters[i][2] = new OracleParameter(":average", idaverage);
                                 cmds[i].Parameters.AddRange(parameters[i]);
                                 i++;
-                                cmds[i].CommandText = queryThird; 
+                                cmds[i].CommandText = queryThird;
+                                parameters.Add(new OracleParameter[1]);
+                                parameters[i][0] = new OracleParameter(":id", idgrade);
                                 cmds[i].Parameters.AddRange(parameters[i]);
                                 i++;
                                 break;
@@ -420,7 +430,7 @@ OR CONCAT(CO.numberCourse,CO.letterCourse,' ',M.matterName) LIKE :like ) AND C.s
         public DataTable SelectStudents(int id)
         {
 
-            string query = @"SELECT studentId FROM Student WHERE idCourse= :Course";
+            string query = @"SELECT STUDENTID FROM STUDENT WHERE IDCOURSE= :Course";
             try
             {
                 OracleCommand cmd = DBImplementation.CreateBasicCommand(query);

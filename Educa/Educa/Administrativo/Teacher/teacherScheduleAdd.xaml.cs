@@ -29,6 +29,7 @@ namespace Educa.Administrativo.Teacher
         {
             this.idTeacher = id;
             InitializeComponent();
+            lblnames.Content = idTeacher;
         }
         #region control
         private void BtnClose_Click(object sender, RoutedEventArgs e)

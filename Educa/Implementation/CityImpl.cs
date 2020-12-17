@@ -15,7 +15,7 @@ namespace Implementation
         public DataTable Select()
         {
 
-            string query = "SELECT CityId, CityName FROM City WHERE state=1";
+            string query = "SELECT CITYID AS ID, CITYNAME AS NAME FROM CITY WHERE STATE=1";
             try
             {
                 OracleCommand cmd = DBImplementation.CreateBasicCommand(query);

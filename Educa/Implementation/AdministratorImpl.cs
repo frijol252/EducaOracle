@@ -15,14 +15,15 @@ namespace Implementation
     public class AdministratorImpl
     {
         User user;
+
         public void InsertTransaction(Administrator t)
         {
             string queryPerson = @"INSERT INTO Person (names, lastName, secondLastName, addres, phone, birthDate,gender,email,latitude,longitude,TownId,photo)
                             VALUES( :names, :lastName, :secondLastName, :address, :phone, :birthDate, :gender, :email, :latitude, :longitude, :TownId, :Photo)";
-            string queryUser = @"INSERT INTO Users (userName, password, role,Personid)
-                            VALUES( :userName,standard_hash(:password, 'MD5'), :role, :PersonId)";
+            string queryUser = @"INSERT INTO USERACCOUNT (USERNAME, PASSWORD, ROLE,PERSONID)
+                            VALUES( :userName, STANDARD_HASH(:password, 'MD5'), :role, :PersonId);";
 
-            string queryAdmin = @"INSERT INTO Administrative(position,profession,SPECIALITY,PersonId)
+            string queryAdmin = @"INSERT INTO ADMINISTRATIVE(POSITION,PROFESSION,SPECIALITY,PERSONID)
                                 VALUES( :position, :profesion, :speciality , :Personid)";
             
 

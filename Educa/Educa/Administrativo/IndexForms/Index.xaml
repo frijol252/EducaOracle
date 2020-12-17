@@ -117,13 +117,13 @@
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10 0">
+                    <Label x:Name="labelASDr"></Label>
                     <Label x:Name="labelUser"></Label>
                     <materialDesign:PopupBox Content="PopupBox"  HorizontalAlignment="Right" Foreground="Gray" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Padding="0" Margin="0,0,0,0" >
                         <StackPanel Width="180">
                             <Button x:Name="btnLogOut" Content="Log Out" Click="BtnLogOut_Click"/>
                         </StackPanel>
                     </materialDesign:PopupBox>
-                    
                     <Button x:Name="ButtonFechar" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="Gray" Click="ButtonFechar_Click">
                         <materialDesign:PackIcon Kind="Power"/>
                     </Button>
@@ -134,7 +134,7 @@
         <Grid Margin="0 50 0 0" Background="#748aa0">
             <Image Source="/Educa;component/Administrativo/Images/EducaImage.png" Opacity="100" Margin="4,-1,2,0"/>
             <Grid x:Name="GridPrincipal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
+            
         </Grid>
 
         <Grid x:Name="GridMenu" Width="250" Margin="-250 10 0 0" HorizontalAlignment="Left" Background="#2a3f54">
@@ -252,10 +252,10 @@
                             <TextBlock Text="Controls" FontSize="17" VerticalAlignment="Center" Margin="20 0"/>
                         </StackPanel>
                         <StackPanel Height="120" Width="auto" Background="#999999">
-                            <Button Height="60" Background="#999999" x:Name="MateriasButton" Click="MateriasButton_Click" IsEnabled="False">
+                            <Button Height="60" Background="#999999" x:Name="MateriasButton" Click="MateriasButton_Click" IsEnabled="True">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="Book" Width="30" Height="30" VerticalAlignment="Center" Margin="5"/>
-                                    <TextBlock Text="Subjects" FontSize="17" Foreground="LightGray" VerticalAlignment="Center" Margin="20 0"/>
+                                    <TextBlock Text="Payments" FontSize="17" Foreground="LightGray" VerticalAlignment="Center" Margin="20 0"/>
                                 </StackPanel>
                             </Button>
                             <Button Height="60" Background="#999999" x:Name="HorariosButton" Click="HorariosButton_Click">

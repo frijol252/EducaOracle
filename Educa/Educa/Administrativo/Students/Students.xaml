@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Educa.Administrativo.Students" WindowStyle="None" AllowsTransparency="True"
+        xmlns:local="clr-namespace:Educa.Administrativo.Students" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-             mc:Ignorable="d" Loaded="Window_Loaded" Initialized="Window_Initialized"
+             mc:Ignorable="d" WindowStyle="None" AllowsTransparency="True" Loaded="Window_Loaded" Initialized="Window_Initialized"
              d:DesignHeight="634.825" d:DesignWidth="987.354">
     <Grid>
         <Grid Height="30" VerticalAlignment="Top" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Background="#2a3f54" Margin="0,0,3,0">

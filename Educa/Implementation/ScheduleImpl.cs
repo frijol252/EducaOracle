@@ -202,21 +202,21 @@ INNER JOIN Class C ON C.idClass=CS.idClass
 INNER JOIN Matter M ON M.idMatter=C.idMatter
 INNER JOIN Teacher T ON T.teacherid=C.teacherid
 INNER JOIN Person P ON P.Personid=T.PersonId
-INNER JOIN Users U ON U.Personid=P.Personid
-WHERE U.UserId= :user AND CS.schedulesid=S.schedulesid AND C.status=2),'') AS '" + day+@"'
+INNER JOIN USERACCOUNT U ON U.Personid=P.Personid
+WHERE U.UserId= :useraccount AND CS.schedulesid=S.schedulesid AND C.status=2),'') AS " +day+@"
 FROM Schedules S
-WHERE S.day= :day";
+WHERE S.DAY= :dayss";
             try
             {
                 OracleCommand cmd = DBImplementation.CreateBasicCommand(query);
                 OracleParameter[] parameters1 = new OracleParameter[2];
 
-                parameters1[0] = new OracleParameter(":user", iduser);
-                parameters1[0] = new OracleParameter(":day", day);
+                parameters1[0] = new OracleParameter(":useraccount", iduser);
+                parameters1[1] = new OracleParameter(":dayss", day);
                 cmd.Parameters.AddRange(parameters1);
                 return DBImplementation.ExecuteDataTableCommand(cmd);
             }
-            catch (Exception ex) { throw ; }
+            catch (Exception ex) { throw; }
 
         }
 
@@ -233,21 +233,23 @@ INNER JOIN Matter M ON M.idMatter=C.idMatter
 INNER JOIN Course CO ON CO.idCourse=C.idCourse
 INNER JOIN Student ST ON ST.idCourse=CO.idCourse
 INNER JOIN Person P ON P.Personid=ST.PersonId
-INNER JOIN Users U ON U.Personid=P.Personid
-WHERE U.UserId= :user AND CS.schedulesid=S.schedulesid AND C.status>0),'') AS '" + day+@"'
+INNER JOIN USERACCOUNT U ON U.Personid=P.Personid
+WHERE U.UserId= :useraccount AND CS.schedulesid=S.schedulesid AND C.status=2),'') AS " + day + @"
 FROM Schedules S
-WHERE S.day= :day";
+WHERE S.DAY= :dayss";
             try
             {
                 OracleCommand cmd = DBImplementation.CreateBasicCommand(query);
                 OracleParameter[] parameters1 = new OracleParameter[2];
 
-                parameters1[0] = new OracleParameter(":user", iduser);
-                parameters1[0] = new OracleParameter(":day", day);
+                parameters1[0] = new OracleParameter(":useraccount", iduser);
+                parameters1[1] = new OracleParameter(":dayss", day);
                 cmd.Parameters.AddRange(parameters1);
                 return DBImplementation.ExecuteDataTableCommand(cmd);
             }
             catch (Exception ex) { throw; }
+
+        
 
         }
         #endregion

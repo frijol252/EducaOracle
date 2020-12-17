@@ -172,6 +172,7 @@ namespace Educa.TeacherViews.Subjects
                 gradeaverage = Math.Round(gradeaverage, 0);
                 total = Math.Round(total, 2);
                 grade = new Grade(idGrade, grade1, grade2, grade3, grade4, gradetest, gradeaverage, idTotal);
+                MessageBox.Show("" + grade.IdAverage);
                 gradeImpl = new GradeImpl();
                 DataTable dt = new DataTable();
                 dt = gradeImpl.SelectTotal(idTotal);

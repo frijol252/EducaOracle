@@ -72,9 +72,9 @@
                         </StackPanel>
                         <StackPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center">
                             <TextBlock VerticalAlignment="Center" Text="City:" Margin="0 0 10 0" Foreground="#c51d6a" FontWeight="Bold"></TextBlock>
-                            <ComboBox x:Name="comboCiudad" DropDownClosed="ComboCiudad_DropDownClosed" VerticalAlignment="Center" Width="120"></ComboBox>
+                            <ComboBox x:Name="comboCiudad" DropDownClosed="comboCiudad_DropDownClosed" VerticalAlignment="Center" Width="120"></ComboBox>
                             <TextBlock VerticalAlignment="Center" Text="Province:" Margin="40 0 10 0" Foreground="#c51d6a" FontWeight="Bold"></TextBlock>
-                            <ComboBox x:Name="comboProvincia" DropDownClosed="ComboProvincia_DropDownClosed" VerticalAlignment="Center" Width="120"></ComboBox>
+                            <ComboBox x:Name="comboProvincia" DropDownClosed="comboProvincia_DropDownClosed" VerticalAlignment="Center" Width="120"></ComboBox>
                         </StackPanel>
                         <StackPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Center" Margin="30 10 0 0">
                             <TextBlock VerticalAlignment="Center" Text="Town:" Foreground="#c51d6a" Margin="0 0 10 0" FontWeight="Bold"></TextBlock>

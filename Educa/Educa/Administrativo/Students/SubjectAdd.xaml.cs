@@ -14,7 +14,6 @@ using System.Windows.Shapes;
 using Model;
 using System.Data;
 using Implementation;
-using System.Data;
 
 namespace Educa.Administrativo.Students
 {
