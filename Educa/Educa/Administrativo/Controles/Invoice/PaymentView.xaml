@@ -18,7 +18,7 @@
                     <StackPanel  Orientation="Vertical" Height="166" Margin="10,10,0,0">
                         <StackPanel Orientation="Horizontal"  Margin="10,10,0,0">
                             <Label Content="NIT/CI:" Margin="0,0,45,0"></Label>
-                            <TextBox x:Name="txtnit" Width="164"></TextBox>
+                            <TextBox x:Name="txtnit" Width="164" LostFocus="txtnit_LostFocus"></TextBox>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"  Margin="10,10,0,0">
                             <Label Content="Business Name:"></Label>

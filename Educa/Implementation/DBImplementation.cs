@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -13,7 +14,8 @@ namespace Implementation
     {
 
         #region oracle
-        public double amount = 630;
+        public static double amount = 630;
+        public static string nit = "4658125876459";
         public static string connectionString = "DATA SOURCE = xe; PASSWORD = Univalle; USER ID = EducaOracle";
         public static string usermail = "educateam.suport@gmail.com";
         public static string passwordmail = "educa1597534682";
@@ -76,11 +78,15 @@ namespace Implementation
             OracleCommand cmd1 = cmds[0];
             try
             {
-                
+                Debug.Listeners.Clear();
+                Debug.Listeners.Add(Logss.LogInternalActivities);
                 cmd1.Connection.Open();
                 transaction = cmd1.Connection.BeginTransaction();
                 foreach (OracleCommand cmd in cmds)
                 {
+                    
+                    Debug.WriteLine(string.Format("{0} Info: Payment add Succesfuly{1}", DateTime.Now, " Administraor"));
+                    Debug.Flush();
                     cmd.Transaction = transaction;
                     cmd.ExecuteNonQuery();
                 }
@@ -102,7 +108,6 @@ namespace Implementation
             try
             {
                 cmd.Connection.Open();
-                System.Diagnostics.Debug.WriteLine(string.Format("{0} | Info: Transact"+cmd.CommandText, DateTime.Now));
                 OracleDataAdapter adapter = new OracleDataAdapter(cmd);
                 adapter.Fill(res);
             }

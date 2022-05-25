@@ -49,5 +49,11 @@ namespace Educa.Controles.Matter
                 d.Show();
             }
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Administrativo.Controles.Invoice.InvoiceView d = new Administrativo.Controles.Invoice.InvoiceView();
+            d.Show();
+        }
     }
 }

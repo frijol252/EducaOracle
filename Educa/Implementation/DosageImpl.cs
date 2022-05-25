@@ -13,7 +13,7 @@ namespace Implementation
     {
         public Dosage Get()
         {
-            Dosage a = new Dosage();
+            Dosage a = new Dosage ();
             OracleCommand cmd = null;
             string query = @"SELECT IDDOSAGE,NROAUTHORIZATION,DOSAGEKEY,COALESCE(FINALNUMBER,0) FROM DOSAGE WHERE STATUS>0";
             OracleDataReader dr = null;
@@ -26,7 +26,7 @@ namespace Implementation
                     a.IdDosage=int.Parse(dr[0].ToString());
                     a.NroAuthorization = long.Parse(dr[1].ToString());
                     a.DosageKey = dr[2].ToString();
-                    a.FinalNumber = int.Parse(dr[2].ToString());
+                    a.FinalNumber = int.Parse(dr[3].ToString());
                 }
             }
             catch (Exception ex)

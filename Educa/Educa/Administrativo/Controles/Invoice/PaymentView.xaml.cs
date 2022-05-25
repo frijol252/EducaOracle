@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Implementation;
+using Model;
 namespace Educa.Administrativo.Controles.Invoice
 {
     /// <summary>
@@ -68,6 +70,10 @@ namespace Educa.Administrativo.Controles.Invoice
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
+        void Ocultar()
+        {
+            dgvSub.Columns[0].Visibility = Visibility.Collapsed;
+        }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
@@ -89,39 +95,7 @@ namespace Educa.Administrativo.Controles.Invoice
 
         private void BtnSelectSubject_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-
-                if (exists)
-                {
-                    payerImpl = new PayerImpl();
-                    payer = payerImpl.Get(txtnit.Text);
-
-                    if (payer.IdPayer > -1)
-                    {
-                        lblbuss.Content = payer.BusinessName;
-                        idPayer = payer.IdPayer;
-                    }
-                    else
-                    {
-                        btnAdd.Height = 40; btnAdd.Width = 100;
-                        lblbuss.Height = 0; lblbuss.Width = 0;
-                        txtBuss.Height = 40; txtBuss.Width = 164;
-                        exists = false;
-                    }
-                }
-                else
-                {
-                    btnAdd.Height = 0; btnAdd.Width = 0;
-                    lblbuss.Height = 40; lblbuss.Width = 164;
-                    txtBuss.Height = 0; txtBuss.Width = 0;
-                    exists = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
@@ -170,7 +144,8 @@ namespace Educa.Administrativo.Controles.Invoice
                             {
                                 if (l.Balance <= amount)
                                 {
-                                    l.Paidout = l.Balance;
+                                    
+                                    l.Paidout = amount;
                                     l.Status = 2;
                                     amount = amount - l.Balance;
                                 }
@@ -180,9 +155,19 @@ namespace Educa.Administrativo.Controles.Invoice
                                     l.Status = 1;
                                 }
                             }
+                            int idaverage = DBImplementation.GetIdentityFromTable("INVOICE");
+                            DBImplementation.ResetIdentFromTable("INVOICE");
                             invoiceImpl = new InvoiceImpl();
-                            invoiceImpl.InsertTransaction(paymentlist,amount,payer);
-
+                            Debug.Listeners.Clear();
+                            Debug.Listeners.Add(Logss.LogInternalActivities);
+                            Debug.WriteLine(string.Format("{0} Info: Start Insert Payment " + idaverage + "{1}", DateTime.Now, Session.SessionID));
+                            Debug.Flush();
+                            invoiceImpl.InsertTransaction(paymentlist, amountsend, payer);
+                            MessageBox.Show("Payment Succesfuly");
+                            
+                            RevisionInvoice r = new RevisionInvoice(idaverage);
+                            r.Show();
+                            this.Close();
                         }
 
                     }
@@ -196,9 +181,9 @@ namespace Educa.Administrativo.Controles.Invoice
                     MessageBox.Show("Please don't forgot amount");
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                throw;
+                MessageBox.Show(ex.Message);
             }
         }
         private void DgvSub_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
@@ -219,6 +204,43 @@ namespace Educa.Administrativo.Controles.Invoice
                 {
                     MessageBox.Show(ex.Message);
                 }
+            }
+        }
+
+        private void txtnit_LostFocus(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (exists)
+                {
+                    payerImpl = new PayerImpl();
+                    payer = payerImpl.Get(txtnit.Text);
+
+                    if (payer.IdPayer > -1)
+                    {
+                        lblbuss.Content = payer.BusinessName;
+                        idPayer = payer.IdPayer;
+                    }
+                    else
+                    {
+                        btnAdd.Height = 40; btnAdd.Width = 100;
+                        lblbuss.Height = 0; lblbuss.Width = 0;
+                        txtBuss.Height = 40; txtBuss.Width = 164;
+                        exists = false;
+                    }
+                }
+                else
+                {
+                    btnAdd.Height = 0; btnAdd.Width = 0;
+                    lblbuss.Height = 40; lblbuss.Width = 164;
+                    txtBuss.Height = 0; txtBuss.Width = 0;
+                    exists = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

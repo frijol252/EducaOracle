@@ -14,7 +14,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Height="30" VerticalAlignment="Top" MouseLeftButtonDown="Grid_MouseLeftButtonDown" Background="#2a3f54" Margin="0,0,-25,0">
-            <Button x:Name="btnClose" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible" Click="BtnClose_Click">
+            <Button x:Name="btnClose" Padding="0" HorizontalAlignment="Right" Width="30" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Visible" Click="BtnClose_Click">
                 <materialDesign:PackIcon Kind="Close" Foreground="White"/>
             </Button>
         </Grid>
@@ -28,7 +28,7 @@
                             <Label Content="NroAuthorizacion:" FontWeight="Bold" Margin="20,0,25,0"></Label>
                             <TextBox x:Name="txtNroAuthorizacion" Width="235" Height="30" VerticalAlignment="Top"></TextBox>
                         </StackPanel>
-                        
+
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,30">
                             <Label Content="Dosage Key:" FontWeight="Bold" Margin="20,0,60,0"></Label>
                             <TextBox x:Name="txtTest" Width="234" Height="30" VerticalAlignment="Top"></TextBox>

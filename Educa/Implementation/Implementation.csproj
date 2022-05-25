@@ -45,12 +45,18 @@
     <Compile Include="AdministratorImpl.cs" />
     <Compile Include="CityImpl.cs" />
     <Compile Include="ClassImpl.cs" />
+    <Compile Include="ControlDosage\AllegedRC4.cs" />
+    <Compile Include="ControlDosage\Base64SIN.cs" />
+    <Compile Include="ControlDosage\ControlCode.cs" />
+    <Compile Include="ControlDosage\Conversores.cs" />
+    <Compile Include="ControlDosage\Verhoeff.cs" />
     <Compile Include="CourseImpl.cs" />
     <Compile Include="DBImplementation.cs" />
     <Compile Include="DosageImpl.cs" />
     <Compile Include="GradeImpl.cs" />
     <Compile Include="HorarioImpl.cs" />
     <Compile Include="InvoiceImpl.cs" />
+    <Compile Include="Logss.cs" />
     <Compile Include="Payer.cs" />
     <Compile Include="PayerImpl.cs" />
     <Compile Include="PaymentImpl.cs" />
@@ -65,10 +71,6 @@
     <Compile Include="UserImpl.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ControlCodeDosage\ControlCodeDosage.csproj">
-      <Project>{6f93aa47-8b5b-4fe6-89f9-ad265803d6dc}</Project>
-      <Name>ControlCodeDosage</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DAO\DAO.csproj">
       <Project>{f80395c6-7544-46a9-a62b-76eabb7af0c2}</Project>
       <Name>DAO</Name>
@@ -78,5 +80,6 @@
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

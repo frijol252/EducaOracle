@@ -26,6 +26,19 @@ status Status, registrationDate Registration,NVL(updateDate, '01-01-1993') Updat
             catch (Exception ex) { throw ex; }
 
         }
+        public DataTable SelectCrystal()
+        {
+
+            string query = @"SELECT idCourse,numberCourse,letterCourse,section Section,
+status Status, registrationDate Registration,NVL(updateDate, '01-01-1993') UpdateDate FROM Course";
+            try
+            {
+                OracleCommand cmd = DBImplementation.CreateBasicCommand(query);
+                return DBImplementation.ExecuteDataTableCommand(cmd);
+            }
+            catch (Exception ex) { throw ex; }
+
+        }
         public DataTable Selectlike(string like)
         {
 
